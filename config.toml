@@ -5,7 +5,7 @@
 #
 #=========================================================================================
 
-base_url = "https://example.com"      # Domain name of your website
+base_url = "https://jedjoud10.github.io"      # Domain name of your website
 title = "Jed307's random blogs"
 description = "My own blogs about game devevelopment, graphics programming, and Rust!"
 default_language = "en"
