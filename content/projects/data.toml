@@ -1,0 +1,48 @@
+[[project]]
+name = "cFlake Engine (2020 - 2023)"
+desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
+tags = ["ecs", "graphics", "game-dev", "game-engine-dev"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/cflake-engine" },
+  { name = "Demo Video", url = "https://www.youtube.com/watch?v=lbgAekmQiOY&ab_channel=Jed037" },
+  { name = "New terrain demo video", url = "https://www.youtube.com/watch?v=r_6kavfRgyE&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "Snow Game Prototype"
+desc = "Prototype for a snow game. Initally implemented in UE4, moved to Unity."
+tags = ["game-dev", "ue4", "unity"]
+links = [
+  { name = "UE4 Test Video", url = "https://www.youtube.com/watch?v=9GY12-9wfto&t=3s&ab_channel=Jed037" },
+  { name = "Unity Test Video", url = "https://www.youtube.com/watch?v=VOfj5LN8Gw0&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "GPU/CPU Procedural Terrain Generator in Unity (2019)"
+desc = "Implemented using compute shaders (voxelization and meshing) and async GPU readback."
+tags = ["game-dev", "unity"]
+links = [
+    { name = "Test Video", url = "https://www.youtube.com/watch?v=LkH9zZbKxUA&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "GPU/CPU Procedural Terrain Generator in Unity (2023)"
+desc = "Implemented using compute shaders (only for voxelization) and async GPU readback. Supports Job system + Burst for terrain editing and CPU meshing"
+tags = ["game-dev", "unity"]
+links = [
+    { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "PC-Compatible Xbox Steering Wheel (2020)"
+desc = "Hacked a cheap xbox steering wheel to make it PC compatible by using an Arduino Nano and NodeJS to emulate user input"
+tags = ["arduino"]
+links = [
+]
+
+[[project]]
+name = "DC Brushed Motor Self-Stabilizing Drone (2022 - now)"
+desc = "Built a self-stabiliing drone using an Arduino Nano and MPU9250 for my Culminating Activity for TEJ3M"
+tags = ["arduino"]
+links = [
+]
