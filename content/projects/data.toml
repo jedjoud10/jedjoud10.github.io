@@ -1,5 +1,5 @@
 [[project]]
-name = "cFlake Engine (2020 - 2023)"
+name = "cFlake Engine (2020 - current)"
 desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
 tags = ["ecs", "graphics", "game-dev", "game-engine-dev"]
 links = [
