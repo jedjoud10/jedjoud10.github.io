@@ -1,5 +1,22 @@
 [[project]]
-name = "cFlake Engine (2020 - current)"
+name = "Hypothermia (2023 - present)"
+desc = "WIP tech game where you survive and innovate in the cold lands of Hel."
+tags = ["game-dev", "unity", "hdrp", "tech", "survival"]
+links = [
+  { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
+  { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
+]
+
+[[project]]
+name = "GPU/CPU Procedural Terrain Generator in Unity (2023 - present)"
+desc = "Implemented using compute shaders (only for voxelization) and async GPU readback. Supports Job system + Burst for terrain editing and CPU meshing"
+tags = ["game-dev", "unity"]
+links = [
+    { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "cFlake Engine (2020 - 2023)"
 desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
 tags = ["ecs", "graphics", "game-dev", "game-engine-dev"]
 links = [
@@ -23,14 +40,6 @@ desc = "Implemented using compute shaders (voxelization and meshing) and async G
 tags = ["game-dev", "unity"]
 links = [
     { name = "Test Video", url = "https://www.youtube.com/watch?v=LkH9zZbKxUA&ab_channel=Jed037" },
-]
-
-[[project]]
-name = "GPU/CPU Procedural Terrain Generator in Unity (2023)"
-desc = "Implemented using compute shaders (only for voxelization) and async GPU readback. Supports Job system + Burst for terrain editing and CPU meshing"
-tags = ["game-dev", "unity"]
-links = [
-    { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
 ]
 
 [[project]]
