@@ -6,8 +6,8 @@
 #=========================================================================================
 
 base_url = "https://jedjoud10.github.io"      # Domain name of your website
-title = "Jed307's random blogs"
-description = "My own blogs about game devevelopment, graphics programming, and Rust!"
+title = "Jed307's yapping sessions"
+description = "Hobby yapper in the domain of graphics programming"
 default_language = "en"
 theme = "serene"
 output_dir = "public"
@@ -58,8 +58,7 @@ homepage_layout = "about"             # "about" | "list"
 sections = [
     { name = "blog", path = "/blog", is_external = false },
     { name = "projects", path = "/projects", is_external = false },
-    # { name = "about", path = "/about", is_external = false },
-    # { name = "github", path = "https://github.com/<your-username>", is_external = true },
+    { name = "about", path = "/about", is_external = false },
 ]
 blog_section_path = "/blog"
 
@@ -89,4 +88,4 @@ footer_credits = true                 # Whether to show "powered by zola and ser
 
 not_found_title = "404"
 not_found_error_text = "Not Found (real)"
-not_found_recover_text = "« back to home »"
+not_found_recover_text = "« back to home (eepy) »"

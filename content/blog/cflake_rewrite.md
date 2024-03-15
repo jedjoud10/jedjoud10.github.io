@@ -1,5 +1,5 @@
 +++
-title = "cFlake Engine Rewrite"
+title = "cFlake Engine Rewrite (maybe?)"
 date = 2023-09-16
 draft = true
 
@@ -62,8 +62,14 @@ truncate_summary = false
 11. Use Vulkan and SOLELY Vulkan (through Phobos) with build-time compiled shaders
 12. Game editor possibly? Would simply be a different executable that will modify scenes and allow you to quickly execute your code.
 14. Fast compile times (pls fix)
-15. Doesn't run like absolute ass
+15. Doesn't run like absolute ass (should not be coping with sub 60 fps worst case)
 16. Easy to maintain
 17. Does not commit war crimes
 18. Does not become a self ticking time bomb
 19. Follows all ethical rules of the human race
+
+**Bare bones stuff needed to get simple engine running:**
+1. Event execution through custom dependency graph
+2. Robust ECS system (multithreadable too)
+3. Graphics API with the same old interface (type safe) BUT without abusing the type system and making everything a trait/generic
+4. Get EGUI running so we can implement a proper editor interface
