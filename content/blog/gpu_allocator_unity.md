@@ -52,9 +52,233 @@ Before we even tackle dynamic allocation, we must understand that this method of
 # Part 2: GPU Parallel min search
 The first step in allocating memory on the GPU is to find a free block of memory. In my implementations I did this both on the CPU and on the GPU so that I can keep a copy of my indices on the CPU since I will need to be able to remove (aka deallocate) chunks of memory later on.
 
-To store what chunks are currently allocated and in use I simply make use of dynamically allocated bitset where each bit repsents a "sub-allocation". (*in my unity terrain generator each bit simply represents a prop since I haven't implement sub-allocations yet*). This allows me to 
+To store what chunks are currently allocated and in use I simply make use of dynamically allocated bitset where each bit repsents a "sub-allocation". (*in my unity terrain generator each bit simply represents a prop since I haven't implement sub-allocations yet*). This allows me to run a fast algorithm to detect what regions in memory are not being in use and ones that we could allocate. In both my implementations, I created a compute shader that handles this task, and this is its source code and how it works:
+
+```glsl
+#version 460 core
+layout (local_size_x = 128, local_size_y = 1, local_size_z = 1) in;
+
+// Spec constants for sizes
+layout (constant_id = 0) const uint sub_allocations = 1;
+layout (constant_id = 1) const uint vertices_per_sub_allocation = 1;
+layout (constant_id = 2) const uint triangles_per_sub_allocation = 1;
+
+// Each group consists of 128 sub allocations
+const uint sub_allocation_groups = sub_allocations / 128;
+const uint sub_allocations_per_sub_allocation_group = 128;
+
+// Sub allocation chunk indices
+layout(std430, set = 0, binding = 0) buffer SubAllocationChunkIndices {
+    uint[sub_allocations] data;
+} indices;
+
+// Allocation offsets
+layout(std430, set = 0, binding = 1) buffer FoundOffsets {
+    uint vertices;
+    uint triangles;
+} offsets;
+
+// Atomic counters
+layout(std430, set = 0, binding = 2) readonly buffer Counters {
+    uint vertices;
+    uint triangles;
+} counters;
+
+// Must be shared for atomic ops between groups
+shared uint chosen_sub_allocation_index;
+
+// Sub-allocations:         [-1] [-1] [3] [3] [3] [-1] [2] [2]
+// Sub-allocation groups:   [                                ]
+// Dispatch invocations are sub allocation groups
+void main() {
+    if (gl_GlobalInvocationID.x > sub_allocation_groups) {
+        return;
+    }
+
+    // Checks if we are within a free region or not
+    bool within_free = false;
+
+    // Keeps count of the number of empty sub allocations that we passed through 
+    uint free_sub_allocations = 0;
+
+    // Length of what we need to find sub allocs for
+    uint vertices = counters.vertices;
+    uint triangles = counters.triangles;
+
+    // Doesn't really matter since we can calculate it anyways 
+    uint vertex_sub_allocation_count = uint(ceil(float(vertices) / float(vertices_per_sub_allocation)));
+    uint triangle_sub_allocation_count = uint(ceil(float(triangles) / float(triangles_per_sub_allocation)));
+    uint chosen_sub_allocation_count = uint(max(vertex_sub_allocation_count, triangle_sub_allocation_count));
+    uint reason = vertex_sub_allocation_count > triangle_sub_allocation_count ? 2 : 1; 
+
+    // Temp values for now 
+    uint temp_sub_allocation_index = 0;
+    uint temp_sub_allocation_count = 1;
+
+    uint invocation_local_chosen_sub_alloction_index = 0;
+
+    memoryBarrier();
+    barrier();
+
+    // If we are the first group, update temporarily
+    if (gl_GlobalInvocationID.x == 0) {
+        atomicExchange(chosen_sub_allocation_index, uint(-1));
+    }
+
+    memoryBarrier();
+    barrier();
+
+    // Find a free memory range for this specific sub-allocation group
+    uint base = gl_GlobalInvocationID.x * sub_allocations_per_sub_allocation_group;
+    for (uint i = base; i < (base + sub_allocations_per_sub_allocation_group); i++) {
+        bool free = indices.data[i] == uint(-1);
+        
+        // We just moved into a free allocation
+        if (!within_free && free) {
+            temp_sub_allocation_index = i;
+            temp_sub_allocation_count = 0;
+            within_free = true;
+        }
+
+        // We stayed within a free allocation
+        if (within_free && free) {
+            temp_sub_allocation_count += 1;
+        }
+        
+        // If this is a possible candidate for a memory alloc offset, then use it
+        if (within_free && temp_sub_allocation_count >= chosen_sub_allocation_count) {
+            atomicMin(chosen_sub_allocation_index, temp_sub_allocation_index);
+            invocation_local_chosen_sub_alloction_index = temp_sub_allocation_index;
+            break;
+        }
+
+        // Update to take delta
+        within_free = free;
+    }
+
+    memoryBarrier();
+    barrier();
+
+    // Only let one invocation do this shit
+    if (gl_GlobalInvocationID.x != 0) {
+        return;
+    } 
+
+    memoryBarrier();
+    barrier();
+
+    // After finding the right block, we can write to it
+    for (uint i = chosen_sub_allocation_index; i < (chosen_sub_allocation_index + chosen_sub_allocation_count); i++) {
+        indices.data[i] = reason;
+    }
+
+    // Offsets that we will write eventually
+    offsets.vertices = chosen_sub_allocation_index * vertices_per_sub_allocation;
+    offsets.triangles = chosen_sub_allocation_index * triangles_per_sub_allocation;
+}
+```
+
+That's quite a lot of code so lemme break it down for you. Basically, there are 3 steps that occur within this ``find.comp`` compute shader
+1. Get required memory block size to allocate
+2. Initialize min parallel search
+3. Find lowest chunk index to reduce fragmentation (*fun part*)
+
+## Get required memory block size
+What this basically means is that we just need to know how *much* memory we should allocate. This should be a trivial matter since we are using this dynamic allocate for a reason; allocating dynamic memory!
+So this step, in most if not all cases, is already done. In my code it's a bit more complicated since I actually allocate two buffers at once (*for my vertices and triangles*) but that's basically what this code does.
+
+```glsl
+// Length of what we need to find sub allocs for
+uint vertices = counters.vertices;
+uint triangles = counters.triangles;
+
+// Doesn't really matter since we can calculate it anyways 
+uint vertex_sub_allocation_count = uint(ceil(float(vertices) / float(vertices_per_sub_allocation)));
+uint triangle_sub_allocation_count = uint(ceil(float(triangles) / float(triangles_per_sub_allocation)));
+uint chosen_sub_allocation_count = uint(max(vertex_sub_allocation_count, triangle_sub_allocation_count));
+uint reason = vertex_sub_allocation_count > triangle_sub_allocation_count ? 2 : 1; 
+```
+
+## Initialize min parallel search
+Just initialize some global and thread local variables to make use of GPU parallelisation. Basically the following lines
+
+```glsl
+// Must be shared for atomic ops between groups
+shared uint chosen_sub_allocation_index;
+
+// Temp values for now 
+uint temp_sub_allocation_index = 0;
+uint temp_sub_allocation_count = 1;
+
+uint invocation_local_chosen_sub_alloction_index = 0;
+
+// Checks if we are within a free region or not
+bool within_free = false;
+
+// Keeps count of the number of empty sub allocations that we passed through 
+uint free_sub_allocations = 0;
+
+memoryBarrier();
+barrier();
+
+// If we are the first group, update temporarily
+if (gl_GlobalInvocationID.x == 0) {
+    atomicExchange(chosen_sub_allocation_index, uint(-1));
+}
+
+memoryBarrier();
+barrier();
+```
+
+## Find lowest chunk index (actual search algo)
+This is the actual search algorithm. It is very stupid and naive, but it seems to work at reasonable performance in my engine. What I do is simply loop over all the chunks in multiple GPU invocations as to look for an empty chunk of memory in parallel.
+
+```glsl
+// Find a free memory range for this specific sub-allocation group
+uint base = gl_GlobalInvocationID.x * sub_allocations_per_sub_allocation_group;
+for (uint i = base; i < (base + sub_allocations_per_sub_allocation_group); i++) {
+    bool free = indices.data[i] == uint(-1);
+    
+    // We just moved into a free allocation
+    if (!within_free && free) {
+        temp_sub_allocation_index = i;
+        temp_sub_allocation_count = 0;
+        within_free = true;
+    }
+
+    // We stayed within a free allocation
+    if (within_free && free) {
+        temp_sub_allocation_count += 1;
+    }
+    
+    // If this is a possible candidate for a memory alloc offset, then use it
+    if (within_free && temp_sub_allocation_count >= chosen_sub_allocation_count) {
+        atomicMin(chosen_sub_allocation_index, temp_sub_allocation_index);
+        invocation_local_chosen_sub_alloction_index = temp_sub_allocation_index;
+        break;
+    }
+
+    // Update to take delta
+    within_free = free;
+}
+```
+
+So within the many parallel GPU invocations, I do a sequential linear search to find a region of blocks of ``n`` size so that we can use it for our permanent memory allocation
+
+```glsl
+if (within_free && temp_sub_allocation_count >= chosen_sub_allocation_count) {
+    atomicMin(chosen_sub_allocation_index, temp_sub_allocation_index);
+    invocation_local_chosen_sub_alloction_index = temp_sub_allocation_index;
+    break;
+}
+```
+
+these lines are really important, as they avoid one big problem of such a system; ``fragmentation``
+Since we look for empty chunks in parallel, there are many cases in which we *find* many empty chunks candidates, but they're all scattered around the memory heap. So I implement this ``atomicMin`` to find the *lowest* index and the region that is closest to the start of the GPU buffer. This reduces fragmentation which allows us to allocate memory more efficiently. 
+
+Here's a picture of the debug view of the allocate in cFlake engine. As you can see, most white chunks are at the start of the buffer, and there aren't any at the end of the buffer, which is what we want.
+![Allocator Debug View in cFlake Engine](/terrain_allocations_debug.png)
 
 # Part 3: Temp memory -> Perm memory copy
+This is actually the simplest part of the allocator, and its role is to simply copy the temporary memory we wish to allocate into the chunks we just allocated. Simply like ``memcpy``-ing into a ``malloc``
 
-
-![Allocator Debug View in cFlake Engine](/terrain_allocations_debug.png)

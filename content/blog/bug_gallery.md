@@ -99,6 +99,21 @@ truncate_summary = false
 *fucked this shit up AGAIN BRUH*
 ![](/uv_fuckup2.png)
 
-
 *zam...*
 ![](/zam.png)
+
+*messed up the per-vertex ao offset*
+![](/ao_fuckup.png)
+
+
+*TERRAIN SPAGHETTI 2: MEGA FUCKUP PART 1*
+![](/fuckup2.png)
+
+*TERRAIN SPAGHETTI 2: MEGA FUCKUP PART 2*
+![](/multi_fuckup.png)
+
+*mipmap madness*
+![](/mipmap.png)
+
+*le porous terrain indeed*
+![](/porous.png)
