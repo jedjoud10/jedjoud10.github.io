@@ -20,7 +20,7 @@ name = "Simple Rust wrapper around mcsrvstat.us API"
 desc = ""
 tags = ["rust"]
 links = [
-  { name = "Code Base Respository", url = "https://github.com/jedjoud10/FTC23880" },
+  { name = "Respository", url = "https://github.com/jedjoud10/mc-server-status" },
 ]
 
 [[project]]

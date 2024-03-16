@@ -1,5 +1,5 @@
 +++
-title = "Custom Per Vertex Ambient Occlusion"
+title = "Per Vertex Ambient Occlusion for Surface Nets Meshes"
 date = 2024-03-01
 draft = true
 
