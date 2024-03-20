@@ -280,5 +280,4 @@ Here's a picture of the debug view of the allocate in cFlake engine. As you can 
 ![Allocator Debug View in cFlake Engine](/terrain_allocations_debug.png)
 
 # Part 3: Temp memory -> Perm memory copy
-This is actually the simplest part of the allocator, and its role is to simply copy the temporary memory we wish to allocate into the chunks we just allocated. Simply like ``memcpy``-ing into a ``malloc``
-
+This is actually the simplest part of the allocator, and its role is to simply copy the temporary memory we wish to allocate into the chunks we just allocated. Simply like ``memcpy``-ing into a ``malloc``. In of itself, this task is extremely simple; just run a compute shader with a specific size that will copy the memory from one region to another region; the tricky part is that you must decide on the size of the dispatch call for such a compute shader. In all my previous implementations, I went with the naive but easy way of just calling a few dispatches with massive loops inside the compute shader itself, however one could make this a lot more optimized by using indirect dispatch instead but I haven't found any bottlenecks yet so I'm not going to bother.

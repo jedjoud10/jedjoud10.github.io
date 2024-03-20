@@ -22,7 +22,7 @@ truncate_summary = false
 
 Hello and welcome to my first blog!
 
-I'm Jed, and I'm a senior high school student raised in Tunisia, currently frequenting an Ontario High School in Canada. I'm pretty interested by computer science, math, physics, chem, you know, the STEM related stuff. For the past few years I've been coding in my spare time simply because I find it very entertaining and fun.
+I'm Jed, and I'm a senior high school student raised in Tunisia, currently frequenting an Ontario High School in Canada. I'm pretty interested in computer science, math, physics, chem, you know, the STEM related stuff. For the past few years I've been coding in my spare time simply because I find it very entertaining and fun.
 
 On this website, you'll find my personal blogs and projects that I'v made over the years. Most of them are going to be talking about game development or graphics programming, because that's what I enjoy most.
 
@@ -36,6 +36,6 @@ fn test(x: i32) -> bool {
 ```
 
 Test KaTeX equation:
-$$f(x) = x$$
+$$f(x) = 2x^3$$
 
 

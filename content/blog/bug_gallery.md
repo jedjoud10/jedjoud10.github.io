@@ -117,3 +117,9 @@ truncate_summary = false
 
 *le porous terrain indeed*
 ![](/porous.png)
+
+*literal memory corruption when tryna generate opengl terrain*
+![](/mem_corruption_lel.png)
+
+*screen space reflections but I mess up a single negative sign*
+![](/ssr_maxxing.png)

@@ -24,7 +24,7 @@ truncate_summary = false
 
 # Internal Libraries: 
 * app: default initialization point. Should allow customizing global settings and registering events and such
-* assets: Solid and stable asset management system. Should be multithreadable as well, and should allow for recursive asset loading (for gltf files for example)
+* assets: Solid and stable asset management system. Should be multithreadable as well, and should allow for recursive asset loading (for gltf files for example). Could be used for loading scenes.
 * audio: Good audio support (with optional hrtf) and real-time raytraced audio (optional). Should allow playback, recording, generating, and mixing / synthesis
 * graphics: Vulkan based Graphics API, wrapped with proper results and Validation layer when running in debug mode. (probably going to use a fork of [phobos](https://crates.io/crates/phobos))
 * gui: [yakui](https://crates.io/crates/yakui) with graphics API backend
@@ -37,8 +37,8 @@ truncate_summary = false
 
 **Problems with old cflake engine:**
 1. Not GPU parallel safe. Rendering would occur at the end of the frame, causing us to wait for the GPU to complete work. No latency, but bad impact on performance.
-2. No parallelisation between very small systems that read from shared resources.
-3. No use of GPU for culling/instancing/multidraw.
+2. No parallelisation between very small systems that read from shared resources or write to unique resources
+3. No use of GPU for culling/instancing/multidraw. No bindless textures in use
 4. Every system is fixed; cannot disable some and keep some active.
 5. A lot of "drops" inside codes due to resource handling. Having to deal with internal mutability too.
 
@@ -71,5 +71,6 @@ truncate_summary = false
 **Bare bones stuff needed to get simple engine running:**
 1. Event execution through custom dependency graph
 2. Robust ECS system (multithreadable too)
-3. Graphics API with the same old interface (type safe) BUT without abusing the type system and making everything a trait/generic
+3. Graphics API with the same old interface (type safe) BUT without abusing the type system and making everything a trait/generic (too slow for compilation)
 4. Get EGUI running so we can implement a proper editor interface
+5. Reflectable types so that we can make use of an editor interface
