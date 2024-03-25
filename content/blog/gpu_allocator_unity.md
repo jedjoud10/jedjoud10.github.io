@@ -1,7 +1,7 @@
 +++
-title = "How I implemented a compute shader based memory allocator in Unity"
+title = "(WIP) How I implemented a compute shader based memory allocator in Unity"
 date = 2024-03-01
-draft = true
+draft = false
 
 [taxonomies]
 categories = ["Unity", "Compute Shaders", ]
@@ -281,3 +281,6 @@ Here's a picture of the debug view of the allocate in cFlake engine. As you can 
 
 # Part 3: Temp memory -> Perm memory copy
 This is actually the simplest part of the allocator, and its role is to simply copy the temporary memory we wish to allocate into the chunks we just allocated. Simply like ``memcpy``-ing into a ``malloc``. In of itself, this task is extremely simple; just run a compute shader with a specific size that will copy the memory from one region to another region; the tricky part is that you must decide on the size of the dispatch call for such a compute shader. In all my previous implementations, I went with the naive but easy way of just calling a few dispatches with massive loops inside the compute shader itself, however one could make this a lot more optimized by using indirect dispatch instead but I haven't found any bottlenecks yet so I'm not going to bother.
+
+## Side note: March 24th Edit
+Ok I just checked the Vulkan extension lookup for my GPU and I found that there is a ``VK_NV_copy_memory_indirect`` extension that does the stuff that I just explained above, without actually having to implement it in a custom compute shader. Me is very stupid sometimes 
