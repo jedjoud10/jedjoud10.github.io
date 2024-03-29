@@ -1,12 +1,11 @@
 +++
-title = "(WIP) How I implemented a compute shader based memory allocator in Unity"
+title = "(WIP) How I implemented a compute shader based memory allocator in my custom game engine"
 date = 2024-03-01
 draft = false
 
 [taxonomies]
-categories = ["Unity", "Compute Shaders", ]
-tags = ["game-dev", "unity"]
-
+categories = ["Compute Shaders", ]
+tags = ["game-dev", "ecs", "custom-engine"]
 [extra]
 lang = "en"
 toc = true

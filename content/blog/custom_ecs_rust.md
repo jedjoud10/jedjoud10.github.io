@@ -4,8 +4,8 @@ date = 2023-09-16
 draft = false
 
 [taxonomies]
-categories = ["cFlake Engine"]
-tags = ["game-dev", "ecs", "game-engine-dev"]
+categories = ["Rust"]
+tags = ["game-dev", "ecs", "custom-engine"]
 
 [extra]
 lang = "en"
