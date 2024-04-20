@@ -1,4 +1,14 @@
 [[project]]
+name = "cFlake Engine (2020 - 2023)"
+desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
+tags = ["ecs", "rust", "graphics", "game-dev", "game-engine-dev"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/cflake-engine" },
+  { name = "Demo Video", url = "https://www.youtube.com/watch?v=lbgAekmQiOY&ab_channel=Jed037" },
+  { name = "New terrain demo video", url = "https://www.youtube.com/watch?v=r_6kavfRgyE&ab_channel=Jed037" },
+]
+
+[[project]]
 name = "Hypothermia (2023 - present)"
 desc = "WIP tech game where you survive and innovate in the cold lands of Hel."
 tags = ["game-dev", "unity", "tech", "survival"]
@@ -16,6 +26,14 @@ links = [
 ]
 
 [[project]]
+name = "Prisoner's Dilemma test in Rust"
+desc = "Simple personal testing ground for messing around with strategies in the Prisoner's Dilemma Game"
+tags = ["rust"]
+links = [
+  { name = "Respository", url = "https://github.com/jedjoud10/game-theory-test" },
+]
+
+[[project]]
 name = "Simple Rust wrapper around mcsrvstat.us API"
 desc = ""
 tags = ["rust"]
@@ -29,16 +47,6 @@ desc = "Implemented using compute shaders (only for voxelization) and async GPU 
 tags = ["game-dev", "unity"]
 links = [
     { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
-]
-
-[[project]]
-name = "cFlake Engine (2020 - 2023)"
-desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
-tags = ["ecs", "rust", "graphics", "game-dev", "game-engine-dev"]
-links = [
-  { name = "Repository", url = "https://github.com/jedjoud10/cflake-engine" },
-  { name = "Demo Video", url = "https://www.youtube.com/watch?v=lbgAekmQiOY&ab_channel=Jed037" },
-  { name = "New terrain demo video", url = "https://www.youtube.com/watch?v=r_6kavfRgyE&ab_channel=Jed037" },
 ]
 
 [[project]]
