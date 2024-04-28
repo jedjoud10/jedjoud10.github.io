@@ -1,7 +1,7 @@
 +++
 title = "cFlake Engine Rewrite (maybe?)"
 date = 2023-09-16
-draft = true
+draft = false
 
 [taxonomies]
 categories = ["cFlake Engine"]
@@ -19,9 +19,6 @@ outdate_alert_days = 120
 display_tags = true
 truncate_summary = false
 +++
-# Goals:
-
-
 # Internal Libraries: 
 * app: default initialization point. Should allow customizing global settings and registering events and such
 * assets: Solid and stable asset management system. Should be multithreadable as well, and should allow for recursive asset loading (for gltf files for example). Could be used for loading scenes.
@@ -41,6 +38,7 @@ truncate_summary = false
 3. No use of GPU for culling/instancing/multidraw. No bindless textures in use
 4. Every system is fixed; cannot disable some and keep some active.
 5. A lot of "drops" inside codes due to resource handling. Having to deal with internal mutability too.
+6. CPU overhead due to not having a GPU-sided renderer. Mostly taken up by the resource fetch overhead too
 
 **Good things with old cflake engine:**
 1. Was simple to use and get running
@@ -70,7 +68,8 @@ truncate_summary = false
 
 **Bare bones stuff needed to get simple engine running:**
 1. Event execution through custom dependency graph
-2. Robust ECS system (multithreadable too)
+2. Robust game framework system (multithreadable too)
+    * So not necessarily an ECS, which would be tricky to do in Rust (due to borrowing stuff)
 3. Graphics API with the same old interface (type safe) BUT without abusing the type system and making everything a trait/generic (too slow for compilation)
 4. Get EGUI running so we can implement a proper editor interface
 5. Reflectable types so that we can make use of an editor interface

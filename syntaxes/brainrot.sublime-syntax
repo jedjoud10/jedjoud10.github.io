@@ -1,0 +1,14 @@
+%YAML 1.2
+---
+name: brainrot
+file_extensions: [brainrot, rt]
+scope: source.c
+
+contexts:
+  main:
+    - match: \b(for|me|you|rn)\b
+      scope: keyword.control.c
+    - match: \b(me|you)\b
+      scope: variable.function.c
+    - match: \b(inting|fr)\b
+      scope: constant.numeric.c
