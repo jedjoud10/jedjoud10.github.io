@@ -76,3 +76,7 @@ Currently working on this in Godot engine as a way to learn the engine. Just lik
 
 # Fast paced anime fighting game
 Just had the idea of merging an anime fighting game (like kurtzpel) but with the facepaced-ness of something like ultrakill. So you could have some sort of whole combo system with semi-precise frame timings. 
+I'm so fucking angry how the kurtzpel devs just shat on the game for the last few years. It used to be such a good game and now it's just absolute dog shit effort at a money grabbing scam. End of mini rant
+
+# Karnaugh map solver using a neural network
+Using the previous neural network coding idea maybe I could implement a karnaugh map solver that could take any inputs / outputs and reduce them to their simplest boolean formula using a karnaugh map. 
