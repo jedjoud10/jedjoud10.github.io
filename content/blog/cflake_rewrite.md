@@ -45,6 +45,7 @@ truncate_summary = false
 2. Customizing material systems was pretty easy too
 3. Parallel ECS system
 4. Nice dependency injection using the events registry and staging system
+5. Cool to toy with (especially messing around the rendering engine)
 
 **Goals with the rewrite:**
 1. Handle parallelism with shred, should be extendable to material system without much trouble

@@ -9,7 +9,7 @@ links = [
 ]
 
 [[project]]
-name = "Hypothermia (2023 - present)"
+name = "Hypothermia (2023 - 2024)"
 desc = "WIP tech game where you survive and innovate in the cold lands of Hel."
 tags = ["game-dev", "unity", "tech", "survival"]
 links = [
@@ -90,8 +90,15 @@ links = [
 
 [[project]]
 name = "Interdimensional struggle (2020)"
-desc = "Unity game I made with a friend for a weekend game jam. Forgot the name lol."
+desc = "Unity game I made with a friend for a weekend game jam."
 tags = ["2D", "unity"]
 links = [
     { name = "Itch Page", url = "https://jed037.itch.io/interdimensional-struggle" },
+]
+
+[[project]]
+name = "Electrilized (2017)"
+desc = "First game idea that I implemented when I first started out game development."
+tags = ["ue4"]
+links = [
 ]
