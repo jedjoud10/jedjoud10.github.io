@@ -27,6 +27,8 @@ Ok so here's a list of random projects I've had an idea to work on but I neither
 # Voxel renderer
 Just a simple voxel game engine with infinite terrain generation. I do want to try to implement either ray-marching / ray-tracing / 3D DDA to be able to view a shit-load of voxels without having the need for an octree or LOD around the player as that complicates things quite a bit. I also want to experiment with hard / soft ray-traced voxel shadow. In theory sounds really cool cause I could experiment with rust-gpu and coding most of the tracing / GPU code in rust which would be nice as it would allow me to use the trait system and stuff like that. Maybe using phobos or raw vulkan instead of wgpu as well?? Would be cool to experiment with.
 
+**EDIT**: I am currently in the process of writing an OpenGL / OpenTK ray-marcher. Will eventually post the repo online with some cool demo videos. So far I've implemented a few optimizations (as well as a temporal one that has a lot of artefacts but is really fast)
+
 # Fully GPU sided renderer
 Just a renderer with basic features like PBR rendering and other shiz (like in cFlake engine) but instead of having the CPU contain all the data you would instead store literally *everything* on the GPU. Textures, buffers, and everything else would be generated/handled by the GPU (could maybe implement some sort of procedural texture generation as well). But yea culling and everything else would be handled on the GPU, which could lead to some very nice performance boosts compared to the renderer in cFlake for example.
 
@@ -42,13 +44,13 @@ Could be even accelerated with GPU!!! I do want to see how this would like over 
 First tests kinda work for evaluating the color of a ball given a camera feed of the ball (yellow, green, blue, red) albeit the hidden neurons are just absolutely random lol. 
 
 # Custom system dispatcher
-Custom system dispatcher like shred but instead of implementing traits and using associated types we do everything at runtime. So like the user would have to specify before-hand what resources they would read/write from/to and then use that in the frame. Sounds cool to implement at least. Would allow me to experiment with different heuristics for re-ordering systems and other stuffs at runtime.
+Custom system dispatcher like shred but instead of implementing traits and using associated types we do everything at runtime. So like the user would have to specify before-hand what resources they would read/write from/to and then use that in the frame. Sounds cool to implement at least. Would allow me to experiment with different heuristics for re-ordering systems and other stuffs at runtime. Managed to scrap the old dipsatching / injection system of cflake and build this using petgraph. Currently the repo is hidden but it's mostly used for experimentation at the moment.
 
 # WASM4 voxel renderer
 Pretty self-explanatory. Just a voxel renderer but in wasm4 instead.
 
 # WASM4 inverse FFT midi auto-song thingy
-Basically this would take an audio file for a song and try to run an inverse fourier transform on it to find bass/ main melody of a song to be then stored to be palyed afterwards using the dedicated noise, triangle, and sine wave channels in the wasm4 fantasy emulator. 
+Basically this would take an audio file for a song and try to run an inverse fourier transform on it to find bass/ main melody of a song to be then stored to be played afterwards using the dedicated noise, triangle, and sine wave channels in the wasm4 fantasy emulator. 
 
 # Brainrot-rs
 Custom scripting language with an interpreter written in Rust. Just full on brainrot stuff. I currently have a working implementation that could parse something like this:

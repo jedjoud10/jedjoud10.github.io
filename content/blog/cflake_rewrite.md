@@ -34,6 +34,7 @@ truncate_summary = false
 
 **Problems with old cflake engine:**
 1. Not GPU parallel safe. Rendering would occur at the end of the frame, causing us to wait for the GPU to complete work. No latency, but bad impact on performance.
+    * Could be fixed by making a copy of the scene or the needed data (like object matrices) at the start of the frame and IMMEDIATELY beginning rendering (would add latency)
 2. No parallelisation between very small systems that read from shared resources or write to unique resources
 3. No use of GPU for culling/instancing/multidraw. No bindless textures in use
 4. Every system is fixed; cannot disable some and keep some active.
@@ -48,24 +49,23 @@ truncate_summary = false
 5. Cool to toy with (especially messing around the rendering engine)
 
 **Goals with the rewrite:**
-1. Handle parallelism with shred, should be extendable to material system without much trouble
-2. Don't populate the code with "drop"s all over the place
-3. Multithreadable so we can execute multiple systems at the same time
-4. No race conditions
-5. Not callable internally
-6. Modular/customizable so we can disable specific systems or resources when not needed
-7. Parallel GPU/CPU rendering using PHOBOS and 2 frames in flight
-8. Better use of async maybe?
-9. Somewhat unique to differentiate it from Bevy or any general 3D engine like Unity or Godot.
-10. Use community driven crates instead of building everything from scratch (if not necessary).
-11. Use Vulkan and SOLELY Vulkan (through Phobos) with build-time compiled shaders
-12. Game editor possibly? Would simply be a different executable that will modify scenes and allow you to quickly execute your code.
-14. Fast compile times (pls fix)
-15. Doesn't run like absolute ass (should not be coping with sub 60 fps worst case)
-16. Easy to maintain
-17. Does not commit war crimes
-18. Does not become a self ticking time bomb
-19. Follows all ethical rules of the human race
+* Handle parallelism with shred (or custom dispatcher), should be extendable to material system without much trouble
+* Don't populate the code with "drop"s all over the place
+* Multithreadable so we can execute multiple systems at the same time
+* No race conditions
+* Parallel GPU/CPU rendering using PHOBOS and 2 frames in flight
+    * On second hand not really. As much as I love phobos in theory it's pretty unstable rn (panics without a good reason) even though the underlying code makes intuitive sense :(.
+* Better use of async maybe?
+* Somewhat unique to differentiate it from Bevy or any general 3D engine like Unity or Godot.
+* Use community driven crates instead of building everything from scratch (if not necessary).
+* Use Vulkan and SOLELY Vulkan (through Phobos) with build-time compiled shaders
+* Game editor possibly? Would simply be a different executable that will modify scenes and allow you to quickly execute your code.
+* Fast compile times (pls fix)
+* Doesn't run like absolute ass (should not be coping with sub 60 fps worst case)
+* Easy to maintain
+* Does not commit war crimes
+* Does not become a self ticking time bomb
+* Follows all ethical rules of the human race
 
 **Bare bones stuff needed to get simple engine running:**
 1. Event execution through custom dependency graph

@@ -9,9 +9,32 @@ links = [
 ]
 
 [[project]]
-name = "Hypothermia (2023 - 2024)"
+name = "HypoSharp (C# OpenTK engine) (2019)"
+desc = "First game engine I decided to implement in C# using OpenTK. Managed to implement a deferred rendering pipeline but then moved to rust"
+tags = ["graphics", "game-dev", "game-engine-dev"]
+links = [
+]
+
+[[project]]
+name = "Throw It IMGJ-33 (2024)"
+desc = "Fourth rewrite of Throw It, I think? Actually contains some nice gameplay elements this time though"
+tags = ["game-dev", "unity", "snow-stuff"]
+links = [
+]
+
+[[project]]
+name = "Hypothermia (2023 - to be picked up again)"
 desc = "WIP tech game where you survive and innovate in the cold lands of Hel."
 tags = ["game-dev", "unity", "tech", "survival"]
+links = [
+  { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
+  { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
+]
+
+[[project]]
+name = "Machine learning enabled colored ball sorter (2024)"
+desc = "Implemented for one of our TEJ4M projects. Project done with a friend"
+tags = ["tech", "rpi", "machine learning", "electronics"]
 links = [
   { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
   { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
@@ -51,7 +74,7 @@ links = [
 
 [[project]]
 name = "Snow Game Prototype"
-desc = "Prototype for a snow game. Initally implemented in UE4, moved to Unity."
+desc = "Prototype for a snow game. Kinda like a rewrite of OG Throw It?"
 tags = ["game-dev", "ue4", "unity"]
 links = [
   { name = "UE4 Test Video", url = "https://www.youtube.com/watch?v=9GY12-9wfto&t=3s&ab_channel=Jed037" },
@@ -69,14 +92,14 @@ links = [
 [[project]]
 name = "PC-Compatible Xbox Steering Wheel (2020)"
 desc = "Hacked a cheap Xbox steering wheel to make it PC compatible by using an Arduino Nano and NodeJS to emulate user input"
-tags = ["arduino"]
+tags = ["arduino", "electronics"]
 links = [
 ]
 
 [[project]]
 name = "DC Brushed Motor Self-Stabilizing Drone (2022 - present)"
 desc = "Built a self-stabiliing drone using an Arduino Nano and MPU9250 for my Culminating Activity for TEJ3M"
-tags = ["arduino"]
+tags = ["arduino", "electronics"]
 links = [
 ]
 
@@ -97,8 +120,15 @@ links = [
 ]
 
 [[project]]
+name = "Throw It (2019)"
+desc = "First Unity game me and my friends decided to make in middle school. Initally implemented in UE4, moved to Unity."
+tags = ["game-dev", "unity", "snow-stuff"]
+links = [
+]
+
+[[project]]
 name = "Electrilized (2017)"
 desc = "First game idea that I implemented when I first started out game development."
-tags = ["ue4"]
+tags = ["ue4", "tech"]
 links = [
 ]
