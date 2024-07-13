@@ -73,29 +73,52 @@ For example this is how it looked like before implementing the ``fetchLinear``. 
 The Unity implementation is not that different, just implemented on the CPU instead using Unity's Job System. I also made this one a bit prettier by applying a curve to the final AO and make it scale with the density of the fetched voxels, which reduces the *blocky*-ness effect that you get from using Surface Nets or Dual Contouring. 
 
 ```cs
-// Calculate the normals at a specific position
+[return: AssumeRange(0u, 262144)]
 [MethodImpl(MethodImplOptions.AggressiveInlining)]
-public static float3 SampleGridNormal(uint3 position, ref NativeArray<Voxel> voxels, int size) {
-    position = math.min(position, math.uint3(size - 2));
+public static int PosToIndex(uint3 position) {
+    return (int)math.round((position.y * 64 * 64 + (position.z * 64) + position.x));
+}
 
-    float baseVal = voxels[PosToIndex(position)].density;
-    float xVal = voxels[PosToIndex(position + math.uint3(1, 0, 0))].density;
-    float yVal = voxels[PosToIndex(position + math.uint3(0, 1, 0))].density;
-    float zVal = voxels[PosToIndex(position + math.uint3(0, 0, 1))].density;
+[MethodImpl(MethodImplOptions.AggressiveInlining)]
+public static half SampleGridInterpolated(float3 position, ref NativeArray<Voxel> voxels) {
+    float3 frac = math.frac(position);
+    uint3 voxPos = (uint3)math.floor(position);
+    voxPos = math.min(voxPos, math.uint3(64 - 2));
+    voxPos = math.max(voxPos, math.uint3(0));
 
-    return new float3(baseVal - xVal, baseVal - yVal, baseVal - zVal);
+    float d000 = voxels[PosToIndex(voxPos)].density;
+    float d100 = voxels[PosToIndex(voxPos + math.uint3(1, 0, 0))].density;
+    float d010 = voxels[PosToIndex(voxPos + math.uint3(0, 1, 0)))].density;
+    float d110 = voxels[PosToIndex(voxPos + math.uint3(0, 0, 1)))].density;
+
+    float d001 = voxels[PosToIndex(voxPos + math.uint3(0, 0, 1)))].density;
+    float d101 = voxels[PosToIndex(voxPos + math.uint3(1, 0, 1)))].density;
+    float d011 = voxels[PosToIndex(voxPos + math.uint3(0, 1, 1)))].density;
+    float d111 = voxels[PosToIndex(voxPos + math.uint3(1, 1, 1)))].density;
+
+    float mixed0 = math.lerp(d000, d100, frac.x);
+    float mixed1 = math.lerp(d010, d110, frac.x);
+    float mixed2 = math.lerp(d001, d101, frac.x);
+    float mixed3 = math.lerp(d011, d111, frac.x);
+
+    float mixed4 = math.lerp(mixed0, mixed2, frac.z);
+    float mixed5 = math.lerp(mixed1, mixed3, frac.z);
+
+    float mixed6 = math.lerp(mixed4, mixed5, frac.y);
+
+    return (half)mixed6;
 }
 
 // Calculate ambient occlusion around a specific point
 [MethodImpl(MethodImplOptions.AggressiveInlining)]
-public static float CalculateVertexAmbientOcclusion(float3 position, ref NativeArray<Voxel> voxels, int size, float offset, float power) {
+public static float CalculateVertexAmbientOcclusion(float3 position, ref NativeArray<Voxel> voxels, float offset, float power) {
     float ao = 0.0f;
     float minimum = 200000;
     
     for (int x = -1; x <= 1; x++) {
         for (int y = -1; y <= 1; y++) {
             for (int z = -1; z <= 1; z++) {
-                float density = SampleGridInterpolated(position + new float3(x, y, z) * 2 + math.float3(0.9f), ref voxels, size);
+                float density = SampleGridInterpolated(position + new float3(x, y, z) * 2 + math.float3(0.9f), ref voxels);
                 density = math.min(density, 0);
                 ao += density;
                 minimum = math.min(minimum, density);
@@ -116,7 +139,7 @@ Here's a better picture of the AO in action in blocky unity terrain
 Overall it's a pretty cheap algorithm that enhances the quality fidelty of the terrain without too much work. I personally consider that a success.
 Here are other demos showcasing this effect
 
-# Side Note
-I did notice through my testing and experimentation with my engine that sometimes using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough so here you go. Maybe this could be extended to yield some new results, maybe. It was pretty cool though.
-
+{% note(header="Concluding Side Note?") %}
+I did notice through my testing and experimentation with my engine that sometimes using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough so here you go. Maybe this could be extended to yield some new results like VXGI or something like VX-enabled reflections or stuff like that, maybe. It was pretty cool though.
 ![cFlake Terrain Density Debug](/density.png)
+{% end %}

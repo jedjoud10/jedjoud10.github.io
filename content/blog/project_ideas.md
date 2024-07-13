@@ -27,7 +27,10 @@ Ok so here's a list of random projects I've had an idea to work on but I neither
 # Voxel renderer
 Just a simple voxel game engine with infinite terrain generation. I do want to try to implement either ray-marching / ray-tracing / 3D DDA to be able to view a shit-load of voxels without having the need for an octree or LOD around the player as that complicates things quite a bit. I also want to experiment with hard / soft ray-traced voxel shadow. In theory sounds really cool cause I could experiment with rust-gpu and coding most of the tracing / GPU code in rust which would be nice as it would allow me to use the trait system and stuff like that. Maybe using phobos or raw vulkan instead of wgpu as well?? Would be cool to experiment with.
 
-**EDIT**: I am currently in the process of writing an OpenGL / OpenTK ray-marcher. Will eventually post the repo online with some cool demo videos. So far I've implemented a few optimizations (as well as a temporal one that has a lot of artefacts but is really fast)
+
+{% note(header="EDIT") %}
+I am currently in the process of writing an OpenGL / OpenTK ray-marcher. Will eventually post the repo online with some cool demo videos. So far I've implemented a few optimizations that I am currently writing a [__blog post__](http://jedjoud10.github.io/blog/depth-reproj/) about actually lol
+{% end %}
 
 # Fully GPU sided renderer
 Just a renderer with basic features like PBR rendering and other shiz (like in cFlake engine) but instead of having the CPU contain all the data you would instead store literally *everything* on the GPU. Textures, buffers, and everything else would be generated/handled by the GPU (could maybe implement some sort of procedural texture generation as well). But yea culling and everything else would be handled on the GPU, which could lead to some very nice performance boosts compared to the renderer in cFlake for example.
@@ -52,6 +55,10 @@ Pretty self-explanatory. Just a voxel renderer but in wasm4 instead.
 # WASM4 inverse FFT midi auto-song thingy
 Basically this would take an audio file for a song and try to run an inverse fourier transform on it to find bass/ main melody of a song to be then stored to be played afterwards using the dedicated noise, triangle, and sine wave channels in the wasm4 fantasy emulator. 
 
+{% alert(header="BIG FUCKING WARNING") %}
+I am sorry in advance for the crimes I have committed on the face of God's green Earth.
+{% end %}
+
 # Brainrot-rs
 Custom scripting language with an interpreter written in Rust. Just full on brainrot stuff. I currently have a working implementation that could parse something like this:
 ```brainrot
@@ -75,16 +82,20 @@ Factory game but instead of having factories be real entities in the world they'
 # Potator (potato 2D game in space)
 Currently working on this in Godot engine as a way to learn the engine. Just like old potator but this time it won't run like shit like in Unity. Currently have implemented pistol weapon and frier weapon (shotgun). Also added some cool dash ability and planet sprouts that will allow you to get more ammo.
 
-# Fast paced anime fighting game
-Just had the idea of merging an anime fighting game (like kurtzpel) but with the facepaced-ness of something like ultrakill. So you could have some sort of whole combo system with semi-precise frame timings. 
-I'm so fucking angry how the kurtzpel devs just shat on the game for the last few years. It used to be such a good game and now it's just absolute dog shit effort at a money grabbing scam. End of mini rant.
-Also could have some *interesting* player classes like "Keyboard Warrior", "Kekw Mans", "Groblino" or goofy shit like that. Do not question the grade 5 humor.
+# Third person anime fighting combo game
+Just had the idea of merging an anime fighting game just like kurtzpel. So you could have some sort of whole combo system with semi-precise frame timings. 
+I'm so fucking angry how the kurtzpel devs just shat on the game for the last few years. It used to be such a good game with a somewhat interesting (albeit repetive) story on the PvE side, but now it's just absolute dog shit effort at a money grabbing scam. It had such good mechanics too, and I constantly look at the steam page and they keep adding characters with their custom abilities which sucks cause the game went to fucking shit.
+I already tried Genshin Impact, Wuthering Waves, and Blue Protocol. None of them
+1) ran nicely on my laptop
+2) gave me the same feeling / type of fun that kurtzpel did
+I am set on making this game unless something similar to Kurtzpel gets released.
 
 # Karnaugh map solver using a neural network
 Using the previous neural network coding idea maybe I could implement a karnaugh map solver that could take any inputs / outputs and reduce them to their simplest boolean formula using a karnaugh map. 
 
 # Electrilized
 This was actually the very first game I wanted to implement when I started having a passion for game development. Basically just a factory game with procedurally generated terrain and somewhat accurate electronic components (like capacitors, resistors, stuff like that). Originally implemented in UE4 on my shitty Toshiba laptop, but I haven't tried reimplementing the project for over 6 years now. It originally had low poly style with a grid like map and an undeground dungeon system.
+Logan brought up the idea of making this a liminal space game instead. Not what I originally intended with the OG game but sounds fun so might as well. 
 
 # WAPDO MAN!!!!!
 Wapdo man game.
@@ -95,3 +106,16 @@ This was cool as it allowed me to talk to imaginary anime girls which was pretty
 
 # Something with OpenTK
 OpenTK is pretty fun to mess with as well. I wanna either implement a game engine or an actual game within it.
+
+{% note(header="Note") %}
+Actually managed to do something with OpenTK!!!! It's the voxel ray-marcher thingy I mentioned above...
+{% end %}
+
+# Game with procedural magic circle / magic system
+Idea I've had for a while actually. Fully blown out scalable and modular magic system system that allows you to create spells, runes, and encantations that conserve some underlying laws (like laws of equivalent exchange lulz).
+Would be cool to make a procedural spell system that allows you to use up nearby resources (mana in the air, mana from user, materials around you) and modify it or use it as an input resource for other sub-spells. Could lead to a "pipeline" effect where multiple spells depend on each other's outputs, kinda like a factory. 
+
+All from some simple elements: Light, Water, Stone, Organic, Mana, Ether
+Could for example, make a spell that uses stone particles and converts it to other types using mana
+And each spell / rune would be describable using the patterns within it, like a special pattern could represent "using" an element as input or "outputting" it to the next part of the pipeline
+ 

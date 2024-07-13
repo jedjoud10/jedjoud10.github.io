@@ -1,5 +1,5 @@
 +++
-title = "(WIP) How I implemented a compute shader based memory allocator in my custom game engine"
+title = "How I implemented a compute shader based memory allocator in my custom game engine"
 date = 2024-03-01
 draft = false
 

@@ -39,11 +39,9 @@ GM3 --> C4[Component 2]
 
 This method works fine for the most part, but scales terribly when you have thousands of components that have computationally expensive logic. This also makes parallelism and multithreading a bit more complicated since you can’t easily parallelize a lot of cheap operations.
 
-**(note: Unity DOTS and Unity ECS fix this completely since they use both multithreading and SIMD, but using their Job System)**
-
-<!-- (related to SIMD: You can’t make use of efficient SIMD parallelism since the environment does not know the exact operations that it would be executing beforehand, thus cannot optimize for specific architectures or things like that) -->
-
-
+{% note(header="Note") %}
+Unity DOTS and Unity ECS fix this completely since they use both multithreading and SIMD, but using their Job System.
+{% end %}
 
 So, for my game engine, I decided to implement a common (if not over-used) technique to alleviate these kind of problems: ECS 
 ECS stands for Entity Component System, and it is an architectural pattern in use by game engines for handling a lot of game objects using multithreading safe methods. I am pretty sure that there are a multitude of articles and resources that explain how and why it is better for performance in general, but here’s my shot at explaining it. ECS is *usually* split into three parts: **Entities**, **Components**, and **Systems**. 
@@ -318,6 +316,9 @@ This sped up things incredibly, without having to complicate the code a bunch, s
 
 And after uhhhh… a few **months** of painstaking blood shedding work and relentless nights of debugging non-deterministic tests and undefined behaviors due to manipulating raw pointers... there you go! You’ve got yourself your own proper ECS library! <br>
 (*shoulda used one of the open source ones aaaaa*) 
+
+oh well, at least it was a learning experience amiright ಥ‿ಥ
+
 
 Other great articles to learn ECS that taught me all of this stuff:
 
