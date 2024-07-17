@@ -139,7 +139,7 @@ Here's a better picture of the AO in action in blocky unity terrain
 Overall it's a pretty cheap algorithm that enhances the quality fidelty of the terrain without too much work. I personally consider that a success.
 Here are other demos showcasing this effect
 
-{% note(header="Concluding Side Note?") %}
-I did notice through my testing and experimentation with my engine that sometimes using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough so here you go. Maybe this could be extended to yield some new results like VXGI or something like VX-enabled reflections or stuff like that, maybe. It was pretty cool though.
+{% note(header="Side Note") %}
+I did notice through my testing and experimentation with my engine that sometimes using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough to mention it at least. Maybe this could be extended to yield some results similar to VXGI or large scale AO. It is pretty cool.
 ![cFlake Terrain Density Debug](/density.png)
 {% end %}

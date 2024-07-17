@@ -43,11 +43,13 @@ anchors = "on"
 
 name = "Jedjoud10"                         # Your name
 id = "Jed037"                           # Your id / username / handle
-bio = "Hobby Programmer / Senior High school Student"                          # Your bio
+bio = "Hobby Programmer / Incoming Computer Science Student at UofG"                          # Your bio
 avatar = "img/avatar.webp"            # Your avatar
 links = [                             # Your links
     { name = "GitHub", icon = "github", url = "https://github.com/jedjoud10" },
     { name = "Twitter", icon = "twitter", url = "https://twitter.com/Jedjoudo" },
+    { name = "Instagram", icon = "instagram", url = "https://www.instagram.com/jedjoudo/" },
+    { name = "LinkedIn", icon = "linkedin", url = "https://www.linkedin.com/in/jed-jribi/" },
     { name = "Email", icon = "email", url = "mailto:jribijed6@gmail.com" },
     #{ name = "Discord", icon = "discord", url = "" },
     { name = "Youtube", icon = "youtube", url = "https://www.youtube.com/channel/UCaeZjQFw4QIi5vdfonAmsvA" },

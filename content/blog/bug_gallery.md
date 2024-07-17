@@ -123,3 +123,6 @@ truncate_summary = false
 
 *screen space reflections but I mess up a single negative sign*
 ![](/ssr_maxxing.png)
+
+*me when vulkan moment indeed*
+![](/vulkan_moment.png)

@@ -9,8 +9,8 @@ links = [
 ]
 
 [[project]]
-name = "HypoSharp (C# OpenTK engine) (2019)"
-desc = "First game engine I decided to implement in C# using OpenTK. Managed to implement a deferred rendering pipeline but then moved to rust"
+name = "HypoSharp (csharp OpenTK engine) (2019)"
+desc = "First game engine I decided to implement in csharp using OpenTK. Managed to implement a deferred rendering pipeline but then moved to rust"
 tags = ["graphics", "game-dev", "game-engine-dev"]
 links = [
 ]
@@ -18,14 +18,14 @@ links = [
 [[project]]
 name = "Throw It IMGJ-33 (2024)"
 desc = "Fourth rewrite of Throw It, I think? Actually contains some nice gameplay elements this time though. Me and Logan have set to complete it to a working demo after exams"
-tags = ["game-dev", "unity", "c#", "snow-stuff"]
+tags = ["game-dev", "unity", "csharp", "snow-stuff"]
 links = [
 ]
 
 [[project]]
 name = "OpenTK OpenGL Voxel Renderer"
-desc = "Simple voxel raymarcher implemented in C# and OpenGL. Makes use of sparse virtual textures and temporal depth reprojection to accelerate marching"
-tags = ["graphics", "c#", "snow-stuff"]
+desc = "Simple voxel raymarcher implemented in csharp and OpenGL. Makes use of sparse virtual textures and temporal depth reprojection to accelerate marching"
+tags = ["graphics", "csharp", "snow-stuff"]
 links = [
   { name = "Demo Funny Bug Video", url = "https://www.youtube.com/watch?v=Pn0584Uzk7k&ab_channel=Jed037" },
 ]
@@ -33,7 +33,7 @@ links = [
 [[project]]
 name = "Hypothermia (2023 - to be picked up again)"
 desc = "WIP tech game where you survive and innovate in the cold lands of Hel."
-tags = ["game-dev", "unity", "c#", "tech", "survival"]
+tags = ["game-dev", "unity", "csharp", "tech", "survival"]
 links = [
   { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
   { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
@@ -46,9 +46,17 @@ tags = ["tech", "rpi", "machine learning", "electronics"]
 links = [
 ]
 
+
 [[project]]
-name = "Lead programmer for FTC team 23880 (2023) (Nelson High School)"
-desc = "Lead Java programmer. Also one of the leaders in the Design Team and Building Teams"
+name = "Tic-tac-toe AI with machine learning image recognition (2024)"
+desc = "Implemented for our final performance task in TEJ4M. Project done with a friend. Used a custom neural network and algorithmic TTT bot"
+tags = ["tech", "rpi", "machine learning", "electronics"]
+links = [
+]
+
+[[project]]
+name = "Lead programmer/engineer for FTC team 23880 (2023) (Nelson High School)"
+desc = "Lead Java programmer and engineer. Also one of the drivers for the Bolton and Scarborough competitions"
 tags = ["java", "robotics"]
 links = [
   { name = "Code Base Respository", url = "https://github.com/jedjoud10/FTC23880" },
@@ -73,7 +81,7 @@ links = [
 [[project]]
 name = "GPU/CPU Procedural Terrain Generator in Unity (2023 - present)"
 desc = "Implemented using compute shaders (only for voxelization) and async GPU readback. Supports Job system + Burst for terrain editing and CPU meshing"
-tags = ["game-dev", "unity", "c#"]
+tags = ["game-dev", "unity", "csharp"]
 links = [
     { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
 ]
@@ -90,7 +98,7 @@ links = [
 [[project]]
 name = "GPU/CPU Procedural Terrain Generator in Unity (2019)"
 desc = "Implemented using compute shaders (voxelization and meshing) and async GPU readback."
-tags = ["game-dev", "unity", "c#"]
+tags = ["game-dev", "unity", "csharp"]
 links = [
     { name = "Test Video", url = "https://www.youtube.com/watch?v=LkH9zZbKxUA&ab_channel=Jed037" },
 ]
@@ -120,7 +128,7 @@ links = [
 [[project]]
 name = "Interdimensional struggle (2020)"
 desc = "Unity game I made with a friend for a weekend game jam."
-tags = ["2D", "unity", "c#"]
+tags = ["2D", "unity", "csharp"]
 links = [
     { name = "Itch Page", url = "https://jed037.itch.io/interdimensional-struggle" },
 ]
@@ -128,7 +136,7 @@ links = [
 [[project]]
 name = "Throw It (2019)"
 desc = "First Unity game me and my friends decided to make in middle school. Initally implemented in UE4, moved to Unity."
-tags = ["game-dev", "unity", "snow-stuff", "c#"]
+tags = ["game-dev", "unity", "snow-stuff", "csharp"]
 links = [
 ]
 
