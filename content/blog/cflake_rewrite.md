@@ -53,13 +53,13 @@ truncate_summary = false
 * Don't populate the code with "drop"s all over the place
 * Multithreadable so we can execute multiple systems at the same time
 * No race conditions
-* Parallel GPU/CPU rendering using PHOBOS and 2 frames in flight
+* Parallel GPU/CPU rendering using 2-3 frames in flight
+* Game editor possibly? Would simply be a different executable that will modify scenes and allow you to quickly execute your code.
     * On second hand not really. As much as I love phobos in theory it's pretty unstable rn (panics without a good reason) even though the underlying code makes intuitive sense :(.
 * Better use of async maybe?
 * Somewhat unique to differentiate it from Bevy or any general 3D engine like Unity or Godot.
 * Use community driven crates instead of building everything from scratch (if not necessary).
 * Use Vulkan and SOLELY Vulkan (through Phobos) with build-time compiled shaders
-* Game editor possibly? Would simply be a different executable that will modify scenes and allow you to quickly execute your code.
 * Fast compile times (pls fix)
 * Doesn't run like absolute ass (should not be coping with sub 60 fps worst case)
 * Easy to maintain

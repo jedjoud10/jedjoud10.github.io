@@ -17,8 +17,15 @@ links = [
 
 [[project]]
 name = "Throw It IMGJ-33 (2024)"
-desc = "Fourth rewrite of Throw It, I think? Actually contains some nice gameplay elements this time though. Me and Logan have set to complete it to a working demo after exams"
+desc = "Fourth rewrite of Throw It. Completely overlauhed gameplay and designs"
 tags = ["game-dev", "unity", "csharp", "snow-stuff"]
+links = [
+]
+
+[[project]]
+name = "MyAnimeList show ranking vs # of favourites (finalizing project for MDM4U)"
+desc = "Simple rust/python fetcher that reads off of some MAL scraper libraries and writes it to a CSV so I can paste it into google sheets"
+tags = ["data-management", "rust", "python"]
 links = [
 ]
 

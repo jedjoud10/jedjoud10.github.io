@@ -1,5 +1,5 @@
 +++
-title = "Reprojecting depth values as an acceleration structure for ray-marching"
+title = "Improving ray-marching performance by temporal reprojection"
 date = 2024-05-21
 draft = true
 
@@ -31,7 +31,7 @@ In my head, I **knew** reprojection could be used to make ray-marching a lot qui
 {% note(header="Note") %}
 Now unfortunately this would only work for a static scene (or a scene where the depth of a pixel doesn't change over frames without any camera movement). For example, imagine a pixel having a depth $d$ at frame $t$. This ray-"advancing" optimization would only work if  $d_{t-1}>d_{t}$, since the pre-advanced ray would clip into the volume instead. 
 
-Actually on second thought this wouldn't even be a problem if you subtract the approximated minimum depth by like a specific amount, so that the ray-marcher would at least have to march **once** or more depending on the complexity of the sub voxels if they change at runtime based on like a time parameter or something like that.
+Even with a small offset that you subtract from the approximated depth, you'd still run into issues if the depth changes without any camera movement (like modifying the geometry at runtime)
 {% end %}
 
 I really *really* wanted to implement this since no-one else seems to have implemented it and I couldn't find anything about it online. This would also help me get my toes wet with reproj stuff in general since that's been a long standing goal of mine when it comes to shader stuff.
@@ -72,7 +72,6 @@ I decided to draw all of this on a piece of paper first to see how I would check
 ![](/reprojection_drawing.jpg)
 
 Now, by the look of the demo video, it looked like some sort of iterative approach was at work because of the clear stepping that occured when the camera goes "inside" the old frustum and looking at it from the side. I kinda knew that it was doing something like ray-marching the old frustum itself, so that's what I tried to do first, and surprisingly that was literally how you implement positional reprojection (albeit probably the most naive method todo so)
-
 
 # Actual code used
 If you want to see the actual code behind this reprojection stuff here it is:

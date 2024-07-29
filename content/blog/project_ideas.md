@@ -27,8 +27,7 @@ Ok so here's a list of random projects I've had an idea to work on but I neither
 # Voxel renderer
 Just a simple voxel game engine with infinite terrain generation. I do want to try to implement either ray-marching / ray-tracing / 3D DDA to be able to view a shit-load of voxels without having the need for an octree or LOD around the player as that complicates things quite a bit. I also want to experiment with hard / soft ray-traced voxel shadow. In theory sounds really cool cause I could experiment with rust-gpu and coding most of the tracing / GPU code in rust which would be nice as it would allow me to use the trait system and stuff like that. Maybe using phobos or raw vulkan instead of wgpu as well?? Would be cool to experiment with.
 
-
-{% note(header="EDIT") %}
+{% note(header="Edit") %}
 I am currently in the process of writing an OpenGL / OpenTK ray-marcher. Will eventually post the repo online with some cool demo videos. So far I've implemented a few optimizations that I am currently writing a [__blog post__](http://jedjoud10.github.io/blog/depth-reproj/) about actually lol
 {% end %}
 
@@ -88,7 +87,8 @@ I'm so fucking angry how the kurtzpel devs just shat on the game for the last fe
 I already tried Genshin Impact, Wuthering Waves, and Blue Protocol. None of them
 1) ran nicely on my laptop
 2) gave me the same feeling / type of fun that kurtzpel did
-I am set on making this game unless something similar to Kurtzpel gets released.
+
+I am set on making this game unless something similar to Kurtzpel gets released. No idea how I'm going to handle making the art style but I really want to make this game a thing.
 
 # Karnaugh map solver using a neural network
 Using the previous neural network coding idea maybe I could implement a karnaugh map solver that could take any inputs / outputs and reduce them to their simplest boolean formula using a karnaugh map. 
@@ -96,9 +96,6 @@ Using the previous neural network coding idea maybe I could implement a karnaugh
 # Electrilized
 This was actually the very first game I wanted to implement when I started having a passion for game development. Basically just a factory game with procedurally generated terrain and somewhat accurate electronic components (like capacitors, resistors, stuff like that). Originally implemented in UE4 on my shitty Toshiba laptop, but I haven't tried reimplementing the project for over 6 years now. It originally had low poly style with a grid like map and an undeground dungeon system.
 Logan brought up the idea of making this a liminal space game instead. Not what I originally intended with the OG game but sounds fun so might as well. 
-
-# WAPDO MAN!!!!!
-Wapdo man game.
 
 # AI based discord bot
 Already implemented this in JavaScript with a hacky API I found online to fetch character AI (c.ai) responses from a user sent message. Most of the time the shit broke down somewhere in the API call pipeline but I haven't fixed that yet. 
