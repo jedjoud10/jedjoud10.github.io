@@ -64,7 +64,7 @@ If, for example, the camera moved forward in the direction it is currently looki
 As I had no idea what I was fucking doing, I looked up videos and other resources about this type of reprojeciton stuff, which led me to [Asynchronous Reprojection](https://en.wikipedia.org/wiki/Asynchronous_reprojection) for VR and this [demo view](https://youtu.be/VvFyOFacljg?t=70) implementing such a reprojection technique within the Unity game engine. As the wiki states, this technique is used in VR for cases where the hardware can't keep up with the software and causes the fps to drop, which is a very bad experience in VR, so this technique kinda uses the data from last frame and new rotation information from the headset to reproject the viewed image. This is basically what I want to do, but instead of reprojecting the whole image directly I would just repro the depth data to use in the current frame.
 
 {% note(header="Note") %}
-You could probably implement the async reprojection stuff on **top** of the current one to possibly speed it up even more 
+You could probably implement the async reprojection stuff on **top** of the current one to possibly speed it up even more, but at a latency cost kinda.
 {% end %}
 
 I decided to draw all of this on a piece of paper first to see how I would check the closest distance to the scene even after a "local" translation and rotation. This drawing just showcases two camera frustum, slightly offset from each other in one case and slightly rotated from each other in another case to see how I should remap the voxel geometry simply based on these differences. This actually helped me find out a flaw with my reprojection code which caused me some headaches cause I forgot to keep the ray direction un-normalized after I project it using the perspective matrix. 
@@ -90,7 +90,7 @@ This was the code that specifically handled rotational reprojection in cases whe
 ```glsl
 vec4 last_uvs_full = (proj_matrix * last_frame_view_matrix) * vec4(ray_dir_non_normalized.xyz, 0.0);
 
-// the thing that I forot that kinda made me insane
+// the thing that I forgot that kinda made me insane
 last_uvs_full.xyz /= last_uvs_full.w;
 
 // convert the [-1,1] range to [0,1] for texture sampling
@@ -100,7 +100,8 @@ last_uvs /= 2;
 ```
 
 Positional reprojection loop. Basically ray-marching within the ray-marched depth of the previous / still frame so we can keep a safe "minimum" distance to the scene even if we move any direction. 
-Do note that before I fetch the depth texture of the last frame, I run a little downsampling / dilation step that simply blurs the depth texture and takes the smallest value in the convolution grid (which saves me to handle this in the main loop below)
+Do note that before I fetch the depth texture of the last frame, I run a little downsampling / dilation step that simply blurs the depth texture and takes the smallest value in the convolution grid (which saves me to handle this in the main loop below).
+I think you could even run the whole reprojection step at a lower resolution since the results are going to be dilated by some small amount anyways
 ```glsl
 for (int i = 0; i < total_steps; i++) {
 	vec3 temp_ray_dir = repr_pos - last_position;
@@ -132,7 +133,8 @@ for (int i = 0; i < total_steps; i++) {
 ```
 
 # Conclusion and results
-Ok so in conclusion, this optimization worked pretty nicely (albeit a bit slower in some cases). There's definitely a big big room for improvement because I feel like the positional repro loop could be simplified using some sort of heuristic. Something like a HiZ depth pyramid could help us skip early steps.
+This optimization worked pretty nicely for most cases. There's definitely a big big room for improvement because I feel like the positional repro loop could be simplified using some sort of heuristic. Something like a HiZ depth pyramid could help us skip early steps. And for the rotational repo variant, it's really fast, but really really buggy whenever you move.
+You can make it swap between rotational / positional reprojection based on camera movement, but it would be a bit erratic for the framerate to increase whenever you are not moving out of nowhere.
 
 {% note(header="Idea") %}
 If we treat each pixel on the screen as a mini frustum (with specific near/far bounds based on the last depth texture), we could do something like a line-frustum check to check the closest depth distance to scene that we can safely march by.

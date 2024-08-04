@@ -55,7 +55,7 @@ links = [                             # Your links
     { name = "Youtube", icon = "youtube", url = "https://www.youtube.com/channel/UCaeZjQFw4QIi5vdfonAmsvA" },
 ]
 
-homepage_layout = "about"             # "about" | "list"
+homepage_layout = "list"             # "about" | "list"
 
 sections = [
     { name = "blog", path = "/blog", is_external = false },

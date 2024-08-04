@@ -1,5 +1,5 @@
 +++
-title = "How I implemented a compute shader based memory allocator in my custom game engine"
+title = "GPU-Side Compute based linear memory allocator using bitsets"
 date = 2024-03-01
 draft = false
 
@@ -279,7 +279,15 @@ Here's a picture of the debug view of the allocate in cFlake engine. As you can 
 ![Allocator Debug View in cFlake Engine](/terrain_allocations_debug.png)
 
 # Part 3: Temp memory -> Perm memory copy
+{% note(header="Edit") %}
+Ok I just checked the Vulkan extension lookup (March 24th 2024) for my GPU and I found that there is a ``VK_NV_copy_memory_indirect`` extension that does the stuff that I will explained below, without actually having to implement it in a custom compute shader. You could probably skip the following text and use the extension instead but at the time of writing this for my engine I didn't know this extension was available (and even if it was, I wouldn't be able to use it since I used wgpu, unless I do some sort of Vulkan/wgpu interop) 
+{% end %}
+
 This is actually the simplest part of the allocator, and its role is to simply copy the temporary memory we wish to allocate into the chunks we just allocated. Simply like ``memcpy``-ing into a ``malloc``. In of itself, this task is extremely simple; just run a compute shader with a specific size that will copy the memory from one region to another region; the tricky part is that you must decide on the size of the dispatch call for such a compute shader. In all my previous implementations, I went with the naive but easy way of just calling a few dispatches with massive loops inside the compute shader itself, however one could make this a lot more optimized by using indirect dispatch instead but I haven't found any bottlenecks yet so I'm not going to bother.
 
-## Side note: March 24th Edit
-Ok I just checked the Vulkan extension lookup for my GPU and I found that there is a ``VK_NV_copy_memory_indirect`` extension that does the stuff that I just explained above, without actually having to implement it in a custom compute shader. Me is very stupid sometimes 
+# Conclusion & Results
+So, as far as results go, this whole allocator works pretty darn nicely. I haven't profiled it but I can assume it's relatively fast. The combination of using bitwise ops and having a "minimum" allocation size (governed by the sub-allocation size) keeps things relatively simple too. 
+
+As I said before, I've used this in both my custom rust game engine [cFlake](https://github.com/jedjoud10/cflake-engine) for terrain mesh generation and in my [Voxel Unity Package](https://github.com/jedjoud10/VoxelTerrainGenerator) to handle prop generation, and in both cases it worked pretty flawlessly.
+
+The only problems I encountered with this if I recall where sometimes data would overwrite / overlap itself when there is no more space to write to (this mostly happened in my unity prop generator). This happens because I have no fallback that gives out an error in that implementation, but I did in my custom engine I think.

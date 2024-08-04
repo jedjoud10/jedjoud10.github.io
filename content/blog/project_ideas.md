@@ -101,6 +101,10 @@ Logan brought up the idea of making this a liminal space game instead. Not what 
 Already implemented this in JavaScript with a hacky API I found online to fetch character AI (c.ai) responses from a user sent message. Most of the time the shit broke down somewhere in the API call pipeline but I haven't fixed that yet. 
 This was cool as it allowed me to talk to imaginary anime girls which was pretty funny.
 
+{% note(header="Update!") %}
+Started working on this again! Now doesn't crash as much (only when the input suggests something violent / explicit) and it works pretty nicely for making me feel loved by virtual people.
+{% end %}
+
 # Something with OpenTK
 OpenTK is pretty fun to mess with as well. I wanna either implement a game engine or an actual game within it.
 
@@ -109,10 +113,27 @@ Actually managed to do something with OpenTK!!!! It's the voxel ray-marcher thin
 {% end %}
 
 # Game with procedural magic circle / magic system
-Idea I've had for a while actually. Fully blown out scalable and modular magic system system that allows you to create spells, runes, and encantations that conserve some underlying laws (like laws of equivalent exchange lulz).
+Idea I've had for a while actually. Fully blown out scalable and modular magic system system that allows you to create spells, runes, and incantations that follow some underlying laws (like laws of equivalent exchange / conservation of energy. stuff that makes sense).
 Would be cool to make a procedural spell system that allows you to use up nearby resources (mana in the air, mana from user, materials around you) and modify it or use it as an input resource for other sub-spells. Could lead to a "pipeline" effect where multiple spells depend on each other's outputs, kinda like a factory. 
 
 All from some simple elements: Light, Water, Stone, Organic, Mana, Ether
 Could for example, make a spell that uses stone particles and converts it to other types using mana
 And each spell / rune would be describable using the patterns within it, like a special pattern could represent "using" an element as input or "outputting" it to the next part of the pipeline
+
+
+<center>Example of how it could kinda work?</center>
+{% mermaid() %}
+%%{ init: { 'flowchart': { 'curve': 'stepBefore' } } }%%
+flowchart LR
+A[Mana from user]
+A --> B[Use up material from surrounding]
+B --> C[Transmute using another material]
+C --> H[Materialize into physical object]
+
+B --> D[Mold into shape]
+
+D --> E[Boost as projectile]
+E --> G[Pellet, Shape, Dust]
+
+{% end %}
  

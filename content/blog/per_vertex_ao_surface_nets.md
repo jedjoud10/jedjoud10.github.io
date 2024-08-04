@@ -1,5 +1,5 @@
 +++
-title = "Per Vertex Ambient Occlusion for Surface Nets Meshes"
+title = "Per vertex ambient occlusion for surface nets meshes"
 date = 2024-03-16
 draft = false
 
@@ -136,10 +136,11 @@ Here's a better picture of the AO in action in blocky unity terrain
 ![Unity AO](/unity_ao.png)
 
 # Conclusion
-Overall it's a pretty cheap algorithm that enhances the quality fidelty of the terrain without too much work. I personally consider that a success.
-Here are other demos showcasing this effect
+Overall it's a pretty cheap algorithm that enhances the quality fidelty of the terrain without too much work. I personally consider that a success. The only main problem with this algorithm is that it can't really simulate large scale ambient occlusion effect. Like at best, this only simulates stuff largers than SSAO but smaller than something like GI. 
+
+Another minor defect that comes with my implementation as well is that sometimes chunk edges are very noticeable since the voxel fetching algorithm does not take account voxels from nearby chunks (this is implemented to improve performance by decoupling chunk generation). So chunks edges can be noticeable when there's lots of AO in certain cases.
 
 {% note(header="Side Note") %}
-I did notice through my testing and experimentation with my engine that sometimes using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough to mention it at least. Maybe this could be extended to yield some results similar to VXGI or large scale AO. It is pretty cool.
+I did notice through my testing and experimentation with my engine from time to time using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough to mention it at least. Maybe this could be extended to yield some results similar to VXGI or large scale AO. It is pretty cool.
 ![cFlake Terrain Density Debug](/density.png)
 {% end %}

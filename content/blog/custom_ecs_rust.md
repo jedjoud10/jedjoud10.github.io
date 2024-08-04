@@ -310,7 +310,7 @@ Since the possible variants for these values is either 0 or 1, we can "flip" the
 
 I decided to modify the ``state`` array in my ``Archetype`` to a ``column state chunk`` array that contains the component add/modify state of 64 entities all at once *(since there are 64 bits in a ``u64`` integer)* to. I could’ve went with u128, but for now I decided to keep it to a reasonable chunk amount of 64 *(I could bump it up to 128 any time I needed anyways, it all makes use of the trait system so it is very easy to just switch to another type that implements the basic bitwise operations without having to rewrite most of the logic)*.
 
-This sped up things incredibly, without having to complicate the code a bunch, so I’ll take it as a win. As an added bonus, I could now skip over a whole chunk (64) of entities if I know that none of them pass the filter (by simpling counting the number of bits inside the chunked state mask (which on most architectures, is a special instruction, popcnt)
+This sped up things incredibly, without having to complicate the code a bunch, so I’ll take it as a win. As an added bonus, I could now skip over a whole chunk (64) of entities if I know that none of them pass the filter (by simpling counting the number of bits inside the chunked state mask (which on most architectures, is a special instruction: **popcnt**)
 
 # Conclusion
 
@@ -320,7 +320,7 @@ And after uhhhh… a few **months** of painstaking blood shedding work and relen
 oh well, at least it was a learning experience amiright ಥ‿ಥ
 
 
-Other great articles to learn ECS that taught me all of this stuff:
+Other great resources that helped me learn ECS:
 
 [Medium.com article about building an Archetypal Based ECS](https://ajmmertens.medium.com/building-an-ecs-2-archetypes-and-vectorization-fe21690805f9) <br>
 [David Colson's article about making a simple ECS](https://www.david-colson.com/2020/02/09/making-a-simple-ecs.html) <br>
