@@ -1,7 +1,7 @@
 +++
 title = "Improving ray-marching performance by temporal reprojection"
 date = 2024-05-21
-draft = true
+draft = false
 
 [taxonomies]
 categories = ["Compute Shaders"]

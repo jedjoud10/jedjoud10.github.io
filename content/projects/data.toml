@@ -1,6 +1,7 @@
 [[project]]
 name = "cFlake Engine (2020 - 2023)"
 desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
+img = "![](/cflake_terrain_shit.png)"
 tags = ["ecs", "rust", "graphics", "game-dev", "game-engine-dev"]
 links = [
   { name = "Repository", url = "https://github.com/jedjoud10/cflake-engine" },
