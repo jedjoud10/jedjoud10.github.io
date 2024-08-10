@@ -1,7 +1,7 @@
 [[project]]
 name = "cFlake Engine (2020 - 2023)"
 desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
-img = "![](/cflake_terrain_shit.png)"
+#img = "/nice_cflake_terrain.png"
 tags = ["ecs", "rust", "graphics", "game-dev", "game-engine-dev"]
 links = [
   { name = "Repository", url = "https://github.com/jedjoud10/cflake-engine" },
@@ -34,6 +34,7 @@ links = [
 name = "OpenTK OpenGL Voxel Renderer"
 desc = "Simple voxel raymarcher implemented in csharp and OpenGL. Makes use of sparse virtual textures and temporal depth reprojection to accelerate marching"
 tags = ["graphics", "csharp"]
+#img = "/voxel_raymarcher.png"
 links = [
   { name = "Demo Funny Bug Video", url = "https://www.youtube.com/watch?v=Pn0584Uzk7k&ab_channel=Jed037" },
 ]
@@ -90,6 +91,7 @@ links = [
 name = "GPU/CPU Procedural Terrain Generator in Unity (2023 - present)"
 desc = "Implemented using compute shaders (only for voxelization) and async GPU readback. Supports Job system + Burst for terrain editing and CPU meshing"
 tags = ["game-dev", "unity", "csharp"]
+#img = "/unity_terrain_good.png"
 links = [
     { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
 ]

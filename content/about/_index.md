@@ -20,3 +20,21 @@ Also if you have not noticed already I have a VTuber as profile picture. I have 
 I **love** you Shirakami Fubuki.
 You are the only light in my world. <br>
 <sub> (it's ok Botan I still love you too, just not as much) <sub>
+
+Font is Roboto Mono from Google Fonts btw
+
+{% note(header="Note") %}
+Test 123
+{% end %}
+
+{% important(header="Important") %}
+Test 123
+{% end %}
+
+{% warning(header="Warning") %}
+Test 123
+{% end %}
+
+{% alert(header="Alert") %}
+Test 123
+{% end %}

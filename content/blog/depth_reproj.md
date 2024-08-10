@@ -69,7 +69,7 @@ You could probably implement the async reprojection stuff on **top** of the curr
 
 I decided to draw all of this on a piece of paper first to see how I would check the closest distance to the scene even after a "local" translation and rotation. This drawing just showcases two camera frustum, slightly offset from each other in one case and slightly rotated from each other in another case to see how I should remap the voxel geometry simply based on these differences. This actually helped me find out a flaw with my reprojection code which caused me some headaches cause I forgot to keep the ray direction un-normalized after I project it using the perspective matrix. 
 
-![](/reprojection_drawing.jpg)
+*temporarily removed as I'm remaking it to make it clearer. Handwriting fucking sucks.*
 
 Now, by the look of the demo video, it looked like some sort of iterative approach was at work because of the clear stepping that occured when the camera goes "inside" the old frustum and looking at it from the side. I kinda knew that it was doing something like ray-marching the old frustum itself, so that's what I tried to do first, and surprisingly that was literally how you implement positional reprojection (albeit probably the most naive method todo so)
 
@@ -104,31 +104,31 @@ Do note that before I fetch the depth texture of the last frame, I run a little 
 I think you could even run the whole reprojection step at a lower resolution since the results are going to be dilated by some small amount anyways
 ```glsl
 for (int i = 0; i < total_steps; i++) {
-	vec3 temp_ray_dir = repr_pos - last_position;
-	vec4 test_uvs = (proj_matrix * last_frame_view_matrix) * vec4(temp_ray_dir, 0.0);
+  vec3 temp_ray_dir = repr_pos - last_position;
+  vec4 test_uvs = (proj_matrix * last_frame_view_matrix) * vec4(temp_ray_dir, 0.0);
+  
+  // the thing that I forot that kinda made me insane
+  test_uvs.xyz /= test_uvs.w;
+  vec2 test_uvs2 = test_uvs.xy;
 
-    	// the thing that I forot that kinda made me insane
-	test_uvs.xyz /= test_uvs.w;
-	vec2 test_uvs2 = test_uvs.xy;
+  // convert the [-1,1] range to [0,1] for texture sampling
+  test_uvs2 += 1;
+  test_uvs2 /= 2;
 
-    	// convert the [-1,1] range to [0,1] for texture sampling
-	test_uvs2 += 1;
-	test_uvs2 /= 2;
+  // check if the iterated position is within the old frustum
+  if (test_uvs2.x > 0 && test_uvs2.y > 0 && test_uvs2.x < 1 && test_uvs2.y < 1 && test_uvs.w > 0) {
+    float od = texture(last_temporal_depth, test_uvs2 / scale_factor).x;
+    float nd = distance(last_position, repr_pos);
 
-    	// check if the iterated position is within the old frustum
-	if (test_uvs2.x > 0 && test_uvs2.y > 0 && test_uvs2.x < 1 && test_uvs2.y < 1 && test_uvs.w > 0) {
-		float od = texture(last_temporal_depth, test_uvs2 / scale_factor).x;
-		float nd = distance(last_position, repr_pos);
+    // checking depth values
+    if (od < nd) {
+      pos_reprojected_depth = distance(position, repr_pos) - step_size * step_size_offset_factor;
+      total_repro_steps_percent_taken = float(i) / float(total_steps);
+      break;
+    }
+  }
 
-        	// checking depth values
-		if (od < nd) {
-			pos_reprojected_depth = distance(position, repr_pos) - step_size * step_size_offset_factor;
-			total_repro_steps_percent_taken = float(i) / float(total_steps);
-			break;
-		}
-	}
-
-	repr_pos += ray_dir * step_size;
+  repr_pos += ray_dir * step_size;
 }
 ```
 
