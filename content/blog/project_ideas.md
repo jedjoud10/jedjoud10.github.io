@@ -46,7 +46,9 @@ Could be even accelerated with GPU!!! I do want to see how this would like over 
 First tests kinda work for evaluating the color of a ball given a camera feed of the ball (yellow, green, blue, red) albeit the hidden neurons are just absolutely random lol. 
 
 # Custom system dispatcher
-Custom system dispatcher like shred but instead of implementing traits and using associated types we do everything at runtime. So like the user would have to specify before-hand what resources they would read/write from/to and then use that in the frame. Sounds cool to implement at least. Would allow me to experiment with different heuristics for re-ordering systems and other stuffs at runtime. Managed to scrap the old dipsatching / injection system of cflake and build this using petgraph. Currently the repo is hidden but it's mostly used for experimentation at the moment.
+Custom system dispatcher like shred but instead of implementing traits and using associated types we do everything at runtime. So like the user would have to specify before-hand what resources they would read/write from/to and then use that in the frame. Sounds cool to implement at least. Would allow me to experiment with different heuristics for re-ordering systems and other stuffs at runtime. Managed to scrap the old dipsatching / injection system of cflake and build this using petgraph. ~~Currently the repo is hidden but it's mostly used for experimentation at the moment.~~ I made the repo public owo~~
+Here it is: [bleghh](https://github.com/jedjoud10/dispatcher-system)
+It was very fun to toy around with, albeit the "merging" algorithm that makes stuff run in parallel isn't the best at the moment. It definitely needs a rework or two to be actually usable (especially with how bad the code and commenting is)
 
 # WASM4 voxel renderer
 Pretty self-explanatory. Just a voxel renderer but in wasm4 instead.

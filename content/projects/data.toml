@@ -24,14 +24,14 @@ links = [
 ]
 
 [[project]]
-name = "MyAnimeList show ranking vs # of favourites (finalizing project for MDM4U)"
+name = "MyAnimeList show ranking vs # of favourites (finalizing project for MDM4U) (2024)"
 desc = "Simple rust/python fetcher that reads off of some MAL scraper libraries and writes it to a CSV so I can paste it into google sheets"
 tags = ["data-management", "rust", "python"]
 links = [
 ]
 
 [[project]]
-name = "OpenTK OpenGL Voxel Renderer"
+name = "OpenTK OpenGL Voxel Renderer (2024)"
 desc = "Simple voxel raymarcher implemented in csharp and OpenGL. Makes use of sparse virtual textures and temporal depth reprojection to accelerate marching"
 tags = ["graphics", "csharp"]
 #img = "/voxel_raymarcher.png"
@@ -72,7 +72,7 @@ links = [
 ]
 
 [[project]]
-name = "Prisoner's Dilemma test in Rust"
+name = "Prisoner's Dilemma test in Rust (2024)"
 desc = "Simple personal testing ground for messing around with strategies in the Prisoner's Dilemma Game"
 tags = ["rust"]
 links = [
@@ -80,7 +80,7 @@ links = [
 ]
 
 [[project]]
-name = "Simple Rust wrapper around mcsrvstat.us API"
+name = "Simple Rust wrapper around mcsrvstat.us API (2024)"
 desc = ""
 tags = ["rust"]
 links = [
@@ -121,7 +121,7 @@ links = [
 ]
 
 [[project]]
-name = "Discord Bot (degeneracy)"
+name = "Discord Bot (degeneracy) (2023 - 2024)"
 desc = "Implemented for discord hackathon, then repurposed as a c.ai wrapper to talk to virtual anime girls through discord"
 tags = ["discordjs", "javascript"]
 links = [
@@ -135,7 +135,7 @@ links = [
 ]
 
 [[project]]
-name = "Villagers vs Illagers game in WASM4"
+name = "Villagers vs Illagers game in WASM4 (2024 - never finished)"
 desc = "Simple WASM4 game I made with a friend of mine. Implements 2D grid with entities that move around to their objectives"
 tags = ["rust", "wasm4"]
 links = [

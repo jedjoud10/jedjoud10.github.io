@@ -51,7 +51,8 @@ truncate_summary = false
 **Goals with the rewrite:**
 * Handle parallelism with shred (or custom dispatcher), should be extendable to material system without much trouble
 * Don't populate the code with "drop"s all over the place
-* Multithreadable so we can execute multiple systems at the same time
+* Multithreadable so we can execute multiple systems at the same time.
+    * Just finished writing the bare bones for such a lib [here](https://github.com/jedjoud10/dispatcher-system). Could be used as a drop-in replacement to the old system in cFlake
 * No race conditions
 * Parallel GPU/CPU rendering using 2-3 frames in flight
 * Game editor possibly? Would simply be a different executable that will modify scenes and allow you to quickly execute your code.
