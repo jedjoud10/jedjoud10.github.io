@@ -35,7 +35,7 @@ Here are the main issues at the moment (directly copied from the github repo)
 9) Floating props (due to low-resolution segment voxel grid)
 10) Doesn't support ediiting whilst generating new chunks (implemented as a way to avoid job dependency errors, needs to be smarter)
 
-Most of these issues could be linked to these two main reasons: The fact that I use a "lazy" octree, and the fact that I use surface nets as my meshing algorithm
+Most of these issues could be linked to these two main reasons: The fact that I use a "lazy" octree (and just generally using an octree), and the fact that I use surface nets as my meshing algorithm. I'll also explain the separate issues in more detail afterwards.
 
 ## "Lazy?" octree
 Let me first explain what I mean by "lazy" octree. Currently, whenever I generate the terrain, I first generate an octree that gets higher and higher quality around the player camera (which gives us the LOD effect). This, in of itself, is a completely fine way of handling LODs. However my terrain generator only generate the voxel data for chunks *within* the octree. So for example, any chunks that that are currently present in the terrain contain data that *they* generated. For example, if I were to get further away from said chunk and then get close again, that voxel data would need to be recomputed!
@@ -64,3 +64,10 @@ The reason I'm more inclined into using skirts is that they're chunk independent
 
 ## Impostor normals don't match up with their game object counterpart
 ![](/awful_impostors.png)
+
+As you can see, from a close distance, you can clearly tell what props are the impostors and which ones are the actual 3D gameobjects. This is because the normal information of the props does't really match up. I think I have an idea to fix this, but it would require me to re-write how impostors are drawn. Basically, how I handle it at the moment is I just take a *single* picture of each prop variant and use their world normals as is. A smarter way to tackle the problem would be to take multiple pictures, at different camera angles around the source prop. This would match up more closely to how the props are viewed in the game directly. There is actually a [blog post](https://shaderbits.com/blog/octahedral-impostors) about about an implementation of such impostors into UE4 and the Fortnite map, really cool stuff (that's where I got my idea from anyways).
+
+## Floating props (due to low-resolution segment voxel grid)
+This issue occurs because our props and their respective impostors are generated using a completely separate voxel grid. The reason I did that was because if I were to use the chunks' voxel grid, the spawn resolution of the props would decrease as the camera got further away from the chunks (due to the LOD system). However, you can't just compute ALL the voxels as that's a complete waste of resources, it's as if you never had an octree system to begin with!
+
+I need to find a way to "attach" surface props (props that are spawned at the surface of something, like trees or rocks) to the closest surface whenever new chunks are generated. And I've got to remember that I have to update the GPU buffer as well since there are some props that aren't spawned in as prefabs (like un-interactables)

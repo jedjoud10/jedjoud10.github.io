@@ -75,3 +75,7 @@ truncate_summary = false
 3. Graphics API with the same old interface (type safe) BUT without abusing the type system and making everything a trait/generic (too slow for compilation)
 4. Get EGUI running so we can implement a proper editor interface
 5. Reflectable types so that we can make use of an editor interface
+
+{% note(header="Note") %}
+Lowkey I really love Rust and really want to use it to make cFlake 2, but the compile times (coming from using tinycc and C#) are absolutely horrendous. Heck, even coding some stuff in Unity and waiting for the domain reload was faster than waiting for my engine to recompile (and that's without any optimization and stuffs). I think this is mainly because all the dependencies are causing a big stall in the compilation, so I'll need to find a way to either make them compile as rust dylibs or just ditch Rust (which I don't want to do)
+{% end %}

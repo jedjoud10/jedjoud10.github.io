@@ -152,3 +152,6 @@ truncate_summary = false
 
 *average dyna-rocket moment part 3 (side story): POV*
 ![](/pov.png)
+
+*a *gyat*enous number of snowballs*
+![](/gyatt_snowballs.png)

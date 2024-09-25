@@ -37,7 +37,7 @@ This system can be split up to 3 **main** parts:
 
 {% note(header="Note") %}
 In my terrain package, creating the compute buffers for impostor data and filling them up is done automatically. 
-However, I will explain what steps you should take in order to implement this for any type of system
+However, I will explain what steps my program takes whenever that occurs
 {% end %}
 
 # Part 1: Capturing required data
