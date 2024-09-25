@@ -159,4 +159,7 @@ float alpha = LOAD_TEXTURE2D_X(_GBufferTexture0, posInput.positionSS).a;
 ```
 
 # Part 2: Creating prop graphics buffers
+This is another fun part of the process, which is creating the buffers that contain the packed data for each prop. I have this C# struct that contains all relevant data that is then sent to the GPU to be unpacked whenever we try to render the props
+
+
 # Part 2: Rendering the impostorss

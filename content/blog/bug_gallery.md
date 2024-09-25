@@ -134,3 +134,21 @@ truncate_summary = false
 
 *me when vulkan moment indeed*
 ![](/vulkan_moment.png)
+
+*le rust gpu terrain generation struct*
+![](/sigma_rule_rust_struct.png)
+
+*":3" terrain tehe ~w~*
+![](/terrain_blegh.png)
+
+*too many bots bruh*
+![](/hmmm_bots.png)
+
+*average dyna-rocket moment part 1: the missile launches*
+![](/average_missile_moment.png)
+
+*average dyna-rocket moment part 2: the missile curves*
+![](/average_missile_moment_2.png)
+
+*average dyna-rocket moment part 3 (side story): POV*
+![](/pov.png)
