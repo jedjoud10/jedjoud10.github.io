@@ -159,7 +159,50 @@ float alpha = LOAD_TEXTURE2D_X(_GBufferTexture0, posInput.positionSS).a;
 ```
 
 # Part 2: Creating prop graphics buffers
-This is another fun part of the process, which is creating the buffers that contain the packed data for each prop. I have this C# struct that contains all relevant data that is then sent to the GPU to be unpacked whenever we try to render the props
+This is another fun part of the process, which is creating the buffers that contain the packed data for each prop. I have this C# struct that contains all relevant data that is then sent to the GPU to be unpacked whenever we try to render the props. 
+```cs
+// Blittable prop definition (that is also copied on the GPU compute shader)
+[StructLayout(LayoutKind.Sequential)]
+public struct BlittableProp {
+    // Size in bytes of the blittable prop
+    public const int size = 16;
+
+    public half pos_x;
+    public half pos_y;
+    public half pos_z;
+    public half scale;
+
+    // 3 bytes for rotation (x,y,z)
+    public byte rot_x;
+    public byte rot_y;
+    public byte rot_z;
+    
+    // 1 unused padding byte
+    public byte _padding;
+
+    // 2 bytes for dispatch index
+    public ushort dispatchIndex;
+
+    // 1 byte for prop variant
+    public byte variant;
+
+    // 1 unused padding bytes
+    public byte _padding1;
+}
+```
+
+Most of the fields in this struct are using half precision or packed precision types to make impostor rendering take as little memory as possible. Unfortunately this also comes at the cost of having a lower precision readback for whenever we actually want to spawn the props as gameobjects, but we'll just have to cope with that for now.
+
+{% note(header="Note") %}
+There's a way to fix this and it's just to have a separate "Readback" buffer containing another blittle prop struct type with higher precision fields that's only used for gameobject spawning. Could work out maybe... (right now I haven't had a single precision issue with my system so I'll just keep it as is)
+{% end %}
+
+Anyways, I have the same structure also stored on the GPU so that I can create a big fat ``RWStructuredBuffer``s for all the props. For performance reason, I don't have multiple buffers for each type of prop, and instead I just pre-allocate a big *big* fat one and hope that the capacity values that the user specified in the scriptable object are to be trusted (otherwise we'd be writing past the capacity of the buffer lels) 
+
+Here's the code that generates those buffers for example:
+```cs
+
+```
 
 
 # Part 2: Rendering the impostorss

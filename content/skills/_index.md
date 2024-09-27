@@ -1,7 +1,7 @@
 +++
-title = "My Projects"
-description = "My projects page."
-template = "projects.html"
+title = "My Skills"
+description = "My skills page."
+template = "skills.html"
 generate_feed = false
 
 [extra]

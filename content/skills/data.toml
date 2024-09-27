@@ -1,107 +1,36 @@
-[[project]]
-name = "Rust"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "C#"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Unity"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Unreal Engine 4"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Python"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "PyTorch & TensorFlow"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Wgpu"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Vulkan"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "OpenGL"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Rapier"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Linux"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Blender"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "CAD"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "3D Printing"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Soldering"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Circuits Design"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Arduino & Micro-controllers"
-desc = ""
-tags = []
-links = []
-
-[[project]]
-name = "Raspberry Pi"
-desc = ""
-tags = []
-links = []
+[[skill]]
+name = "Rust (2020)"
+[[skill]]
+name = "C# (2019)"
+[[skill]]
+name = "Unity (2019)"
+[[skill]]
+name = "Unreal Engine 4 (2019)"
+[[skill]]
+name = "Python (2020)"
+[[skill]]
+name = "PyTorch & TensorFlow (2024)"
+[[skill]]
+name = "Wgpu (2021)"
+[[skill]]
+name = "Vulkan (2021)"
+[[skill]]
+name = "OpenGL (2021)"
+[[skill]]
+name = "Rapier (2021)"
+[[skill]]
+name = "Linux (2022)"
+[[skill]]
+name = "Blender (2019)"
+[[skill]]
+name = "CAD (2023)"
+[[skill]]
+name = "3D Printing (2023)"
+[[skill]]
+name = "Soldering (2021)"
+[[skill]]
+name = "Circuits Design (2022)"
+[[skill]]
+name = "Arduino & Micro-controllers (2019)"
+[[skill]]
+name = "Raspberry Pi (2023)"
