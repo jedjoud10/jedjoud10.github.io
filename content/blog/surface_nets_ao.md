@@ -140,7 +140,12 @@ Overall it's a pretty cheap algorithm that enhances the quality fidelty of the t
 
 Another minor defect that comes with my implementation as well is that sometimes chunk edges are very noticeable since the voxel fetching algorithm does not take account voxels from nearby chunks (this is implemented to improve performance by decoupling chunk generation). So chunks edges can be noticeable when there's lots of AO in certain cases.
 
+I do wonder if this can be extended for full on voxel GI simulation. Something where "rays" would come from the current sun direction and then reflect off. One could even make this work faster by just pre-simulating this for a bunch of sun angles and then just blending between them. Maybe something like that could fake at least "big GI" like, when having the sun's really strong rays reflect off of a sandy or white surface. Something like this below
+Some GI like this, but like, way way bigger. I also wanna see if this "pre-computation" stuff can also be extended to handle large scale shadows without having to render a shadowmap. Maybe you could store the data within the vertex colors directly for specific sun angles, could be cool to figure out how to do that.
+
+![Real Life GI](/real_life_gi.png)
+
 {% note(header="Side Note") %}
-I did notice through my testing and experimentation with my engine from time to time using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough to mention it at least. Maybe this could be extended to yield some results similar to VXGI or large scale AO. It is pretty cool.
+I did notice through my testing and experimentation with my engine from time to time using the density function itself (or at least part of it) would yield some pretty cool results. Never managed to make use of it for AO but it looks *kinda* similar and cool enough to mention it at least. It is pretty cool.
 ![cFlake Terrain Density Debug](/density.png)
 {% end %}
