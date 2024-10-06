@@ -34,6 +34,12 @@ I am currently in the process of writing an OpenGL / OpenTK ray-marcher. Will ev
 # Fully GPU sided renderer
 Just a renderer with basic features like PBR rendering and other shiz (like in cFlake engine) but instead of having the CPU contain all the data you would instead store literally *everything* on the GPU. Textures, buffers, and everything else would be generated/handled by the GPU (could maybe implement some sort of procedural texture generation as well). But yea culling and everything else would be handled on the GPU, which could lead to some very nice performance boosts compared to the renderer in cFlake for example.
 
+If I'm ever going to do such a thing (which I'm getting hyped up to do now) I really want to go out with the "GPU" side shenanigans. If my GPU supports it, I wanna try out buffer device addresses and other new extension for bindless stuffs. Here's a list of the relatively "new" stuff that I haven't messed around with and that I really REALLY want to mess around with:
+* Bindless rendering
+* Buffer Device Address
+* Ray tracing
+* Atomics, Subgroup & Warp operations 
+
 # SDF / Ray-marching editor hierarchy viewer
 Just a simple test with SDF shapes and egui to make something similar to Womp but that runs locally instead.
 

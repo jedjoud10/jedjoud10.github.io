@@ -201,8 +201,44 @@ Anyways, I have the same structure also stored on the GPU so that I can create a
 
 Here's the code that generates those buffers for example:
 ```cs
+// Initialize CPU and GPU buffers
+private void InitGpuRelatedStuff() {
+    // Temp buffers used for first step in prop generation
+    int tempSum = props.Select(x => x.maxPropsPerSegment).Sum();
+    tempCountBuffer = new ComputeBuffer(props.Count, sizeof(int), ComputeBufferType.Raw);
+    tempPropBuffer = new ComputeBuffer(tempSum, BlittableProp.size, ComputeBufferType.Structured);
 
+    // Secondary buffers used for temp -> perm data copy
+    tempIndexBuffer = new ComputeBuffer(props.Count, sizeof(int), ComputeBufferType.Raw);
+    int permSum = props.Select(x => x.maxPropsInTotal).Sum();
+    int permMax = props.Select(x => x.maxPropsInTotal).Max();
+    maxPermPropCount = permMax;
+    permPropBuffer = new ComputeBuffer(permSum, BlittableProp.size, ComputeBufferType.Structured);
+    permBitmaskBuffer = new ComputeBuffer(permMax, sizeof(uint), ComputeBufferType.Structured);
+
+    // Tertiary buffers used for culling
+    culledCountBuffer = new ComputeBuffer(props.Count, sizeof(int));
+    drawArgsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.IndirectArguments, props.Count, GraphicsBuffer.IndirectDrawIndexedArgs.size);
+    int visibleSum = props.Select(x => x.maxVisibleProps).Sum();
+    culledPropBuffer = new ComputeBuffer(visibleSum, BlittableProp.size);
+
+    // More settings!!!
+    maxDistances = new float[props.Count];
+    meshIndexCount = new uint[props.Count];
+    maxDistanceBuffer = new ComputeBuffer(props.Count, sizeof(float));
+    meshIndexCountBuffer = new ComputeBuffer(props.Count, sizeof(uint));
+
+    // Other stuff (still related to prop gen and GPU alloc)
+    propSectionOffsetsBuffer = new ComputeBuffer(props.Count, sizeof(int) * 3);
+    propSectionOffsets = new uint3[props.Count];
+    segmentIndexCountBuffer = new ComputeBuffer(VoxelUtils.MaxSegments * props.Count, sizeof(uint) * 2, ComputeBufferType.Structured);
+    propSegmentDensityVoxels = VoxelUtils.Create3DRenderTexture(VoxelUtils.PropSegmentResolution, GraphicsFormat.R32_SFloat);
+    unusedSegmentLookupIndices = new NativeBitArray(VoxelUtils.MaxSegments, Allocator.Persistent);
+    unusedSegmentLookupIndices.Clear();
+    segmentsToRemoveBuffer = new ComputeBuffer(VoxelUtils.MaxSegmentsToRemove, sizeof(int));
+}
 ```
 
+I just initialize all the buffers at the start with the maximum capacity that they will ever hold. This cuts down on program complexity as well since I don't have to keep track of the currently allocated length to "re-allocate" the memory 
 
 # Part 2: Rendering the impostorss

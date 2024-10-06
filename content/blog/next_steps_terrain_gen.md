@@ -108,7 +108,7 @@ G --> R
 R --> RD
 {% end %}
 
-We're just causing a slow-down in the pieline by having to readback the data to the CPU. It'd be much nicer if we can just, avoid doing that (which is just what indirect rendering and indirect compute commands are for, which I've used before in my terrain generator).
+We're just causing a slow-down in the pieline by having to readback the data to the CPU. It'd be much nicer if we can just, avoid doing that (which is just what indirect rendering and indirect compute commands are for, which I've used before in my terrain generator). 
 
 ## Doesn't support editing whilst generating new chunks
 This was mostly cause I was fucking stupid and told the editing script to always halt until all chunks are generate and vice versa. This caused a bunch of stalls in the pipeline that weren't actually needed. The main reason I even implemented this was because if the user was editing a chunk and the terrain generator had to unload it / modify its voxel data, the job system would freak out because the editing system and terrain generation system don't really depend on each other and always assume that NO other operations are currently executing, just to make code logic a bit easier to handle.
