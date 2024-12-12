@@ -1,10 +1,10 @@
 +++
-title = "Improving ray-marching performance by temporal reprojection"
+title = "Depth Temporal Reprojection & Ray-Marching"
 date = 2024-05-21
 draft = false
 
 [taxonomies]
-categories = ["Compute Shaders"]
+categories = ["Compute"]
 tags = ["c#", "openTK", "openGL", "glsl", "graphics-dev"]
 
 [extra]

@@ -1,10 +1,10 @@
 +++
-title = "Re-implementing a custom ECS for my game engine"
+title = "Yet Another Archetypal ECS Rust Implementation"
 date = 2023-09-16
 draft = false
 
 [taxonomies]
-categories = ["cFlake Engine"]
+categories = ["cFlake"]
 tags = ["game-dev", "ecs", "custom-engine"]
 
 [extra]

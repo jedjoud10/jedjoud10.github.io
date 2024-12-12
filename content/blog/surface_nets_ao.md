@@ -1,10 +1,10 @@
 +++
-title = "Per vertex ambient occlusion for surface nets meshes"
+title = "Surface Nets Vertex Ambient Occlusion"
 date = 2024-03-16
 draft = false
 
 [taxonomies]
-categories = ["Mesh Generation"]
+categories = ["Mesh"]
 tags = ["procedural"]
 
 [extra]

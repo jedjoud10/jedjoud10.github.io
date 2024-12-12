@@ -4,7 +4,7 @@ date = 2023-09-16
 draft = false
 
 [taxonomies]
-categories = ["cFlake Engine"]
+categories = ["cFlake"]
 tags = ["game-dev", "ecs", "game-engine-dev"]
 
 [extra]
@@ -64,9 +64,10 @@ truncate_summary = false
 * Fast compile times (pls fix)
 * Doesn't run like absolute ass (should not be coping with sub 60 fps worst case)
 * Easy to maintain
-* Does not commit war crimes
-* Does not become a self ticking time bomb
-* Follows all ethical rules of the human race
+* Fucking awesome rendering system:
+    * Asset streaming (with mip streaming yessss)
+    * BDA, PBR, Bindless, software rasterization, maybe even nanite
+    * Cool built in screen space effects that do NOT bloat up the system: VXGI, SSAO, DoF, Motion blur, FSR stuff, VXAO, HBAO, light probe stuff, baked lighting, volumetric lighting. All the cool shit like that!!
 
 **Bare bones stuff needed to get simple engine running:**
 1. Event execution through custom dependency graph

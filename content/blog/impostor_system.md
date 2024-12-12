@@ -1,5 +1,5 @@
 +++
-title = "Automaticaly captured multi-draw instanced impostors in Unity"
+title = "Unity Voxel Terrain Generator: Imposters Among Us"
 date = 2024-09-15
 draft = true
 
@@ -21,13 +21,25 @@ truncate_summary = false
 +++
 
 # Intro
-In this short blog post I'll demonstrate how I was able to draw multiple thousand impostors and their variants without having to manually generate their textures! My system uses an "auto-capture" method that automatically find out all combinations of variants and camera rotations / positions to be able to generate these values at the required angles. 
 
-Here's a list of vocab stuff that I used:
-* Prop: General terrain prop since my system is based on terrain generaiton. This is just a game object that will then be converted to an impostor
-* Impostor: Fake prop that is rendered only using a billboard and a few textures that are automatically captured
+In this short blog post I'll demonstrate how I was able to draw multiple thousand impostors and their variants, just like in the following figures:
+{{ figure(src="/500k_trees.png", caption="Half a million impostors (counting unculled)") }}
+
+{{ figure(src="/775k_total.png", caption="") }}
+{{ figure(src="/775k_total_counts.png", caption="340k visible impostors") }}
+
+{{ figure(src="/1mil_standalone.png", caption="") }}
+{{ figure(src="/1mil_count.png", caption="1 million visible impostors at 40fps@1440p on a 780m (massively bottlenecked due to sub-pixel triangles / warp underutilization)") }}
+
+These impostors support diffuse maps, normal maps, mask maps (roughness, metallic, ao), and directional light shadows! (through a shader graph little hack I'll dwell on a bit later)
+My system uses an **"auto-capture"** method that automatically captures all the necessary textures for the impostors of each prop type at the start of the game, which makes it so that I don't have to manually create these textures myself which improves development time. 
+
+This post will be slightly? more in detail on technical jargon so here's just a list of words that I used and over and their definitions
+* Prop: General terrain "object". Just a game object that is spawned during chunk generation that will then be converted to an impostor at further distances
+* Impostor: Basically, billboard on drugs, uses a simple billboard but uses pre-captured/pre-calculated textures that give the billboard some "depth"
 * Diffuse Texture: Contains only the color data of something to be rendered
-* World Normal Texture: Contains the **world** normal data of something to be rendered. Different than normal maps since those store their data in tangent space.
+* World Normal Texture: Contains the world normals of something to be rendered. Different than normal maps since those store their data in tangent space, whilst this stores it in world space. I use these for my impostors as it personally makes it easier to sample in the shader, instead of having to do some extra stuff that I didn't bother with.
+* Mask Texture: Contains extra data like metallic, AO, and smoothness all compressed into the R,G,A channels of the texture (in that order specifically)
 
 ## Big stuffs
 This system can be split up to 3 **main** parts:
@@ -66,35 +78,19 @@ The props all contain the following script to customize this bevahiour:
 Using this class, I can handle prop serialization (which is another system in of itself, might write a post about how I handle that too), but most importantly, allows me to override the ``OnSpawnCaptureFake()`` method which is called right before we "capture" the render texture information for that prop (and its variants if needed). 
 ```cs
 public abstract class SerializableProp : MonoBehaviour, INetworkSerializable {
-    // Set the prop as modified, forcing us to serialize it
-    public bool wasModified = false;
-
-    // Dispatch group ID bitmask index used for loading and saving 
-    public int ElementIndex { internal set; get; } = -1;
-
-    // Stride of the byte data we will be writing
-    public abstract int Stride { get; }
-
-    // Variant of the prop type
-    public int Variant { get; internal set; }
+    // ...
 
     // Called when the fake gameobject for capturing gets spawned
     public virtual void OnSpawnCaptureFake(Camera camnera, Texture2DArray[] renderedTextures, int variant) { }
 
-    // Called when the fake gameobject for capturing gets destroyed
-    public virtual void OnDestroyCaptureFake() { }
-
-    // When a new prop spawns :3
-    public virtual void OnPropSpawn(BlittableProp prop) { }
-
-    // Serialization / deserialization on a per prop basis
-    public abstract void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter;
+    // ...
 }
 ```
 
 ## C# Capture Code
 And finally, this is the code that handles creating the textures and capturing the data using the custom shader right afterwards.
 ```cs
+// Creates required texture arrays that store each type of texture
 Texture2DArray albedoTextureOut = new Texture2DArray(width, height, prop.variants.Count, TextureFormat.ARGB32, mips);
 Texture2DArray normalTextureOut = new Texture2DArray(width, height, prop.variants.Count, TextureFormat.ARGB32, mips);
 Texture2DArray maskTextureOut = new Texture2DArray(width, height, prop.variants.Count, TextureFormat.ARGB32, mips);
@@ -106,12 +102,7 @@ for (int i = 0; i < prop.variants.Count; i++) {
     camera.orthographicSize = variant.billboardCaptureCameraScale;
 
     // Spawns the fake object and put it in its own layer with the camera
-    GameObject faker = Instantiate(variant.prefab);
-    faker.GetComponent<SerializableProp>().OnSpawnCaptureFake(camera, tempOut, i);
-    faker.layer = 31;
-    foreach (Transform item in faker.transform) {
-        item.gameObject.layer = 31;
-    }
+    // ...
 
     // Move the prop to the appropriate position
     faker.transform.position = variant.billboardCapturePosition;
@@ -127,12 +118,8 @@ for (int i = 0; i < prop.variants.Count; i++) {
         }
     }
 
-    // Reset the prop variant
-    faker.GetComponent<SerializableProp>().OnDestroyCaptureFake();
-    faker.SetActive(false);
-    Destroy(faker);
-    temp.DiscardContents(true, true);
-    temp.Release();
+    // Release resources and destroy fake capture object
+    // ...
 }
 ```
 
@@ -241,4 +228,6 @@ private void InitGpuRelatedStuff() {
 
 I just initialize all the buffers at the start with the maximum capacity that they will ever hold. This cuts down on program complexity as well since I don't have to keep track of the currently allocated length to "re-allocate" the memory 
 
-# Part 2: Rendering the impostorss
+# Part 2: Rendering the impostors
+## Compute Based Dot Product (stupid) Culling
+## Shader graph hack for instanced indirect

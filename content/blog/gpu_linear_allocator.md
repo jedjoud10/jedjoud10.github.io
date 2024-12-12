@@ -1,10 +1,10 @@
 +++
-title = "GPU-Side Compute based linear memory allocator using bitsets"
+title = "GPU Compute-based Linear Memory Allocator"
 date = 2024-03-01
 draft = false
 
 [taxonomies]
-categories = ["Compute Shaders", ]
+categories = ["Compute", ]
 tags = ["game-dev", "ecs", "custom-engine"]
 [extra]
 lang = "en"

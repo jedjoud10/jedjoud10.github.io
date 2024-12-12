@@ -51,7 +51,6 @@ links = [                             # Your links
     { name = "Instagram", icon = "instagram", url = "https://www.instagram.com/jedjoudo/" },
     { name = "LinkedIn", icon = "linkedin", url = "https://www.linkedin.com/in/jed-jribi/" },
     { name = "Email", icon = "email", url = "mailto:jribijed6@gmail.com" },
-    #{ name = "Discord", icon = "discord", url = "" },
     { name = "Youtube", icon = "youtube", url = "https://www.youtube.com/channel/UCaeZjQFw4QIi5vdfonAmsvA" },
 ]
 
@@ -70,7 +69,7 @@ nav_wrapper_right = "} ;"
 nav_wrapper_separator = ","
 
 display_id = true                     # Whether to display your id on homepage
-blog_categorized = true               # Whether to categorize blog posts
+blog_categorized = false               # Whether to categorize blog posts
 blur_effect = true                    # Whether to turn on blur effect on navigation bar
 back_to_top = true                    # Whether to show back-to-top button on post pages
 

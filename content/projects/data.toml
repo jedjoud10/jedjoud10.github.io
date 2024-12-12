@@ -21,6 +21,8 @@ name = "Throw It IMGJ-33 (2024)"
 desc = "Fourth rewrite of Throw It. Completely overlauhed gameplay and designs"
 tags = ["game-dev", "unity", "csharp", "snow-stuff"]
 links = [
+  { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
+  { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
 ]
 
 [[project]]
@@ -61,6 +63,15 @@ name = "Tic-tac-toe AI with machine learning image recognition (2024)"
 desc = "Implemented for our final performance task in TEJ4M. Project done with a friend. Used a custom neural network and algorithmic TTT bot"
 tags = ["tech", "rpi", "machine learning", "electronics"]
 links = [
+]
+
+
+[[project]]
+name = "This website itself!!"
+desc = "Made using Zola and Serene. Markdown as well!"
+tags = ["web"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/jedjoud10.github.io" },
 ]
 
 [[project]]
