@@ -76,7 +76,7 @@ The props all contain the following script to customize this bevahiour:
 
 ## C# Prop Code
 Using this class, I can handle prop serialization (which is another system in of itself, might write a post about how I handle that too), but most importantly, allows me to override the ``OnSpawnCaptureFake()`` method which is called right before we "capture" the render texture information for that prop (and its variants if needed). 
-```cs
+```cs,filename
 public abstract class SerializableProp : MonoBehaviour, INetworkSerializable {
     // ...
 

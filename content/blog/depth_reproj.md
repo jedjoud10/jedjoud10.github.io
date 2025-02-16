@@ -1,5 +1,5 @@
 +++
-title = "Depth Temporal Reprojection & Ray-Marching"
+title = "Depth Temporal Reprojection & Voxel Ray-Marching*"
 date = 2024-05-21
 draft = false
 
