@@ -22,7 +22,7 @@ truncate_summary = false
 
 Very short blog post on how I implemented a dithering and color compression effect in Unity using its new ``Render Graph API``.
 The color compression part is implemented using a simple bit shifting (by getting rid of the first ``n`` bits of the r,g,b values). This is pretty simple and straightforward
-The dithering however, was a bit more involved. I tried commenting what each part of the code does (at least in the shader part, the c# side is pretty straight forward)
+The dithering however, was a bit more involved. I tried commenting what each part of the code does (at least in the shader part, the c# side is pretty straight forward).
 
 ```cs
 using UnityEngine;
@@ -105,7 +105,7 @@ public class DitherColorCompressionRenderFeature : ScriptableRendererFeature {
 }
 ```
 
-```glsl
+```hlsl
 #pragma kernel CSMain
 
 // Properties!!

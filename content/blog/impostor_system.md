@@ -125,7 +125,7 @@ for (int i = 0; i < prop.variants.Count; i++) {
 
 ## Shader
 The unity shader code that handles outputting a passthrogh fullscreen unshaded image based on the required texture type (either diffuse, normals, mask) 
-```glsl
+```hlsl
 float3 color = float3(0, 0, 0);
 
 NormalData normalData;
