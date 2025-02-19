@@ -138,7 +138,7 @@ truncate_summary = false
 *le rust gpu terrain generation struct*
 ![](/sigma_rule_rust_struct.png)
 
-*":3" terrain tehe ~w~*
+*":3" terrain tehe \~w\~*
 ![](/terrain_blegh.png)
 
 *too many bots bruh*
