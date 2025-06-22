@@ -1,7 +1,7 @@
 +++
 title = "SIMD Bit-Gather: X86 AVX2 Edition"
 date = 2025-05-21
-draft = true
+draft = false
 
 [taxonomies]
 categories = ["Random"]
