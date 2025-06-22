@@ -1,5 +1,5 @@
 +++
-title = "Depth Temporal Reprojection & Voxel Ray-Marching*"
+title = "Ray-Marching and Temporal Depth Reprojection"
 date = 2024-05-21
 draft = false
 
@@ -48,12 +48,11 @@ I started planning stuff out on paper thinking how this reprojection stuff based
 Ok, so I tried implemented what ``misha`` suggested. Seems pretty simple right?
 I could even simplify doing reprojection of the position by just reprojection the pixel ray *direction* instead, since that wouldn't change based on position but solely rotation!!! I am a genius!!!!
 
-## Fucking stupidity (aka the part where I lost my shit)
-Unfortunately, this is where the majority of my **fucking** problems began. Now, these problems weren't because I couldn't implement reprojection, but because my original ray-marching code (that I tested multiple times to make sure worked fine without repro) was flawed from the start. My math was wrong all along, and I was actually projecting *by* the viewproj matrix to calculate direction, which is absolutely **fucking** wrong!!!
+Unfortunately, this is where the majority of my problems began. Now, these problems weren't because I couldn't implement reprojection, but because my original ray-marching code (that I tested multiple times to make sure worked fine without repro) was flawed from the start. My math was wrong all along, and I was actually projecting *by* the viewproj matrix to calculate direction, which is absolutely **fucking** wrong!!!
 
-What you actually need to do is take the inverse of the matrix and do vertex projection steps (like in a simple rasterized shader) but in the opposite order. I was very fucking dumb and I spent like a solid 5 hours trying to figure out why mre repro code didn't work (cause in of itself it doesn't use that "inverted" viewproj matrix. Inverse of an inverse is the original yk type thing).
+What you actually need to do is take the inverse of the matrix and do vertex projection steps (like in a simple rasterized shader) but in the opposite order. I was very dumb and I spent like a solid 5 hours trying to figure out why my repro code didn't work ('cause in of itself it doesn't use that "inverted" viewproj matrix).
 
-Anyways after losing my fucking mind over that problem I finally got some rotation reprojection working. Actually was a pretty robust solution and it worked pretty nicely as I could always fallback to ray-marching the rays completely if I couldn't use the reprojected stuff. Whole thing broke down whenever you moved though, but for its specific purpose it worked really nicely.
+Anyways, after losing my mind over that problem I finally got some rotation reprojection working. Actually was a pretty robust solution and it worked nicely. There is the major flaw that this only worked with rotational reprojection, so any linear movement caused some rays to completely miss their targets, but for the intended purpose it worked really good.
 
 # Positional Reprojection
 Now is time for the relatively hard part; positional reprojection.

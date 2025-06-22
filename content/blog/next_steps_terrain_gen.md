@@ -23,8 +23,8 @@ truncate_summary = false
 In this short blog post I'll talk about the current problems / missing features with my ``Unity Voxel Terrain Generator`` package and what are the next steps I'll be taking to improve on it
 
 # Summary Of Problems
-* Octree pain in the butt but also very nicely
-* Cant used data used for children to calculate parents' data (just doesn't work, I tried it. We must recompute it)
+* Octree pain in the butt but also very nice (when used properly)
+* Can't use data for children nodes to calculate parents' data (just doesn't work, I tried it. We must recompute it. This is because I always limit my chunks to power of two sizes.)
 * World edits are handled using a "delta" system meaning that we do not know the underlying voxel data
 * Editing cannot occur during generation (reason: me being lazy)
 * Meshes require n+3 voxels to generate a mesh of size n. Causes/forces us to:
