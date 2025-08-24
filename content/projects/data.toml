@@ -83,6 +83,26 @@ tags = ["tech", "rpi", "machine learning", "electronics"]
 links = [
 ]
 
+[[project]]
+name = "Unity Multiplayer Chat Lobby Prototype (2025)"
+desc = "Implemented in a few hours using Unity Netcode for GameObjects."
+tags = ["unity", "multiplayer"]
+links = [
+]
+
+[[project]]
+name = "Unity Multiplayer Tic Tac Toe Prototype (2025)"
+desc = "WIP. Using Unity Netcode for GameObjects."
+tags = ["unity", "multiplayer"]
+links = [
+]
+
+[[project]]
+name = "Unity Factory Game Prototype (2025)"
+desc = "WIP. Using ECS as the backend. Taking inspiration from Satisfactory / GregTech / Factorio / Create. Maybe something more realistic with more in depth automation."
+tags = ["unity"]
+links = [
+]
 
 [[project]]
 name = "This website itself!!"

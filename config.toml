@@ -6,8 +6,8 @@
 #=========================================================================================
 
 base_url = "https://jedjoud10.github.io"      # Domain name of your website
-title = "Jed307's yapping sessions"
-description = "Hobby yapper in the domain of graphics programming"
+title = "Jed's blog"
+description = ""
 default_language = "en"
 theme = "serene"
 output_dir = "public"
@@ -39,9 +39,9 @@ anchors = "on"
 
 [extra]
 
-name = "Jedjoud10"                         # Your name
+name = "Jed"                         # Your name
 id = "Jed037"                           # Your id / username / handle
-bio = "Hobby Programmer / Computer Science Student at UofG"                          # Your bio
+bio = "Hobby Programmer"                          # Your bio
 avatar = "img/avatar.webp"            # Your avatar
 links = [                             # Your links
     { name = "GitHub", icon = "github", url = "https://github.com/jedjoud10" },
@@ -56,7 +56,7 @@ homepage_layout = "list"             # "about" | "list"
 
 sections = [
     { name = "projects", path = "/projects", is_external = false },
-    { name = "skills", path = "/skills", is_external = false },
+    # { name = "skills", path = "/skills", is_external = false },
     { name = "about", path = "/about", is_external = false },
 ]
 blog_section_path = "/blog"
@@ -82,9 +82,9 @@ outdate_alert_days = 120              # How many days will a post be outdated by
 outdate_alert_text_before = "This article was last updated "
 outdate_alert_text_after = " days ago and may be out of date."
 
-footer_copyright = "© 2024 Jed037"
+footer_copyright = "Jed037"
 footer_credits = true                 # Whether to show "powered by zola and serene" in footer
 
 not_found_title = "404"
-not_found_error_text = "Not Found (real)"
-not_found_recover_text = "« back to home (eepy) »"
+not_found_error_text = "Not Found"
+not_found_recover_text = "« back to home »"

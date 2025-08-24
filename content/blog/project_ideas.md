@@ -1,7 +1,7 @@
 +++
 title = "New programming project ideas"
 date = 2024-04-27
-draft = false
+draft = true
 
 [taxonomies]
 categories = ["Random"]

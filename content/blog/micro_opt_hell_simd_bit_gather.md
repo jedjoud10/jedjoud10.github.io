@@ -1,6 +1,6 @@
 +++
 title = "SIMD Bit-Gather: X86 AVX2 Edition"
-date = 2025-05-21
+date = 2025-06-22
 draft = false
 
 [taxonomies]
@@ -28,7 +28,7 @@ It is a simple bit-gather, but vectorized using ``X86 AVX2`` intrinsics.
 For some reason, Burst compiler did not want to vectorize the ``Load4`` internal loop, so I wanted to see if using manually placed intrinsics would be faster.
 It was faster by 3ms on the median time for a chunk of volume ``66^3``, but for a chunk with volume ``34^3``, this is most probably only a marginal improvement. I will most probably remove this for the sake of code cleanliness and upgradeability, since having raw intrinsics like that make modifying the code extremely more convoluted and annoying for such a small speedup. But, I will leave this here on my website just as a way to archive it because I still feel proud of such an optimization, even though it's not that good.
 
-```cs
+```cs, linenos, hl_lines=10 13 16 19 22-23
 [MethodImpl(MethodImplOptions.AggressiveInlining)]
 private unsafe int CalculateMarchingCubesCode(uint3 position, int baseIndex) {
     // https://docs.unity3d.com/Packages/com.unity.burst@1.4/manual/docs/CSharpLanguageSupport_BurstIntrinsics.html
