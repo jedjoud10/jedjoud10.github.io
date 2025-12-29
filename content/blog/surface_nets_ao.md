@@ -140,6 +140,16 @@ Overall it's a pretty cheap algorithm that enhances the quality fidelty of the t
 
 Another minor defect that comes with my implementation as well is that sometimes chunk edges are very noticeable since the voxel fetching algorithm does not take account voxels from nearby chunks (this is implemented to improve performance by decoupling chunk generation). So chunks edges can be noticeable when there's lots of AO in certain cases.
 
+{% note(header="Side Note") %}
+Edit: Oct 25, 2025.
+The defects that occur due to not sharing voxel data between chunks can be alleviated by, well, *allowing* the AO algorithm to visit voxel data between chunks. This is what we do in the newest version of the ECS terrain generator for Unity. 
+It adds quite a bit of complexity and overhead, since we:
+1. Need to load the values in other chunks through indirect pointers (not too good considering the algorithm already loads values sporadically, which incur lots of cache misses I assume.)
+2. Need to keep track of chunks that need to be "re-lighted". Since we make chunks visible *whenever* they get their meshes, some chunks become visible even before their AO lighting code is executed due to uncompleted dependencies on other chunks' voxel data. This forces us to recalculate the lighting twice, and apply it *after* the chunk has become visible. Since this larger AO is much more expensive, this lighting recalculation takes up a *lot* of the thread time and CPU cycles.
+
+{% end %}
+
+
 I do wonder if this can be extended for full on voxel GI simulation. Something where "rays" would come from the current sun direction and then reflect off. One could even make this work faster by just pre-simulating this for a bunch of sun angles and then just blending between them. Maybe something like that could fake at least "big GI" like, when having the sun's really strong rays reflect off of a sandy or white surface. Something like this below
 Some GI like this, but like, way way bigger. I also wanna see if this "pre-computation" stuff can also be extended to handle large scale shadows without having to render a shadowmap. Maybe you could store the data within the vertex colors directly for specific sun angles, could be cool to figure out how to do that.
 

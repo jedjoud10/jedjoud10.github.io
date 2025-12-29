@@ -1,5 +1,5 @@
 +++
-title = "Bug Gallery (very funny, trust)"
+title = "Bug Gallery"
 date = 2024-03-15
 draft = false
 

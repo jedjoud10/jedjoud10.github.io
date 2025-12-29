@@ -5,7 +5,7 @@ draft = false
 
 [taxonomies]
 categories = ["Random"]
-tags = ["micro-optimization", "wasted-effort-stuff"]
+tags = ["c#", "simd"]
 
 [extra]
 lang = "en"

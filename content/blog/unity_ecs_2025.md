@@ -1,5 +1,5 @@
 +++
-title = "The state of Unity ECS in 2025"
+title = "Unity ECS pitfalls / complaints"
 date = 2025-05-21
 draft = true
 
@@ -22,14 +22,9 @@ truncate_summary = false
 
 Up until recently, I have chosen not to mess with Unity ECS due to its sheer complexity (and often talked about *over*-complexity compared to something like ``flecs``) and poor documentation / poor usage in the community.
 This changed a few days ago when we decided to start writing a new game using ECS to try to get a feel for the technology and see if using it in our other projects could deem doable and worthwhile.
-Here is the list of the nuances / pitholes, and pros that we feel should be more discussed about before doing what we did (heading completely blind without looking anything up before hand)
+Here is the list of the nuances / pitholes the we encountered during the progress (heading completely blind without looking anything up beforehand)
 
-# Pros
-- Easy to create "entity" like behaviour without worrying about what should be inherited and what should be composited; everything *will* be composited
-- Umm.... it's.... it's le ECS.... hehehehehe
-
-# Cons
-## Pit Holes
+# Baking System Order
 - ``ISystem`` and ``SystemBase`` ``OnCreate`` executes even before some baked entities get created in the world. Meaning that if you want to fetch a baked singleton component in one of your sub-scenes you need to do something like *this*:
 ```cs
 public partial struct System: ISystem {
@@ -57,6 +52,7 @@ public partial struct System: ISystem {
 - There are missing ``EntityManager`` methods in ``SystemAPI``.
 - There does not exist a ``SystemAPI.TryGetComponent`` nor ``SystemAPI.TryGetComponentRW``. You have to do a manual ``HasComponent`` check and then fetch the component data
 - There does not exist a ``EntityManager.GetComponentDataRW`` for entities, like ``SystemAPI.GetComponentRW`` for entities.
+- There exists two variants of ``EntityManager.AddComponent``, one that takes in the component data itself (``EntityManager.AddComponentData``) and one that has only the generic (``EntityManager.AddComponent``). Um... why???
 
 # Entity Baking / Conversion Workflow
 - The ```Entity Baking System```. It's painful that all the GameObject prefabs that can be spawned at runtime must be first converted to Baked Entities. This stops you from using ``Scriptable Objects`` to store ``GameObject`` prefabs to instantiate, as you must keep the data in an ``Authoring`` ``MonoBehaviour`` with corresponding ``Baker``. For example, the following data-driven code:
@@ -96,17 +92,20 @@ public class SwordDataBaker: Baker<SwordDataAuthoring> {
 Because you must first add it to the entities baking dependency chain for conversion. That whole system should be removed and instead of using gameobjects, Unity should have implemented an Entity only workflow. Adding that level of complexity (converting from GameObjects to Entities) complicates things, as you can only do that at runtime.
 {% end %}
 
-I mean, I understand why they'd opt for this. Having all the data being serialized in entities before spawning them makes loading scenes with lots of entities really quick, as it's just a memory copy practically. No expensive loading. My issue is how they have built the entity conversion workflow on *top* of GameObject based MonoBehaviours instead of coming up with a dedicated solution specifically for ECS. 
+I mean, I understand why they'd opt for this. Having all the data being serialized in entities before spawning them makes loading scenes with lots of entities really quick, as it's just a memory copy practically. No expensive loading. My issue is how they have built the entity conversion workflow on *top* of GameObject based MonoBehaviours instead of coming up with a dedicated solution specifically for ECS. But I assume that the latter would have been to difficult or too expensive of a feature to build.
 
 Unity states that "you should be able to mix and match ECS and GameObjects in your projects" but that practically never happens. Either because you need one ECS-specific feature in ECS that isn't supported by MonoBehaviours or because you need one GameObject specific feature that isn't supported by ECS. It's half baked, basically. If they made the runtime Entity component editor able to create entity "Prefabs" and set their components that way, that could save us some trouble, but I bet it wouldn't be easy considering the other design choices.
 
 
-- ``MeshRenderer``s with multiple materials create multiple additional entities during baking, but there's no way for the user to know about these additional entites. This screws you over if you want to keep track of all the mesh renderers of a converted ``GameObject`` so that you could, for example, change their ``RenderFilterSettings`` value at runtime (for example, for changing the light layer value at runtime). At least Unity converts the multi-mat ``MeshRenderer``s to Parents in the ECS world, so you could iterate over its children, but that's still somewhat stupid.
+# Multiple Mesh Materials
+``MeshRenderer``s with multiple materials create multiple additional entities during baking, but there's no way for the user to know about these additional entites. This screws you over if you want to keep track of all the mesh renderers of a converted ``GameObject`` so that you could, for example, change their ``RenderFilterSettings`` value at runtime (for example, for changing the light layer value at runtime). At least Unity converts the multi-mat ``MeshRenderer``s to Parents in the ECS world, so you could iterate over its children, but that's still somewhat stupid.
 
 # Blob Data
 - No way to check or debug blob data in the editor. Looking at a component with a ``BlobAssetReference`` will NOT show the internal blob data that was baked. There isn't a blob data window tab either. It's as if blobs do not even exist in the editor lol.
+- Trying to copy a ```BlobAssetReference``` will not work (sometimes (why)). Why. How. Fuck this shit.
 
 {% note(header="Lol, lmao even") %}
 \> https://blog.s-schoener.com/2024-12-17-unity-blobs/ <br> 
 \> "Blob assets in C# were an experiment, and it failed."
 {% end %}
+
