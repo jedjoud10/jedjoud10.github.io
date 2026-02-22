@@ -26,19 +26,14 @@ This is problematic and causes blurring in the texture after it has been written
 This is a simple render feature and pass that alleviates that by forcing the camera to render at a given resolution, no matter the ``render scale``.
 This is very stupid.
 
+
+{% note(header="2026-01-07 Edit") %}
+I have modified the render feature and pass to be able to automatically fetch the render texture width and height *from* the camera directly.
+This is much neater to use, and could be used for multiple cameras that are rendering to differently sized render textures.
+{% end %}
+
 ```cs
-using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.RenderGraphModule;
-using UnityEngine.Rendering.Universal;
-
 public class FixedResolutionFeature : ScriptableRendererFeature {
-    // set these to any value you want
-    // you can even make them public parameters that you can modify in the editor
-    public const int WIDTH = 128;
-    public const int HEIGHT = 128;
-
-
     public class FixedResolutionPass : ScriptableRenderPass {
         public FixedResolutionPass() {
             renderPassEvent = RenderPassEvent.BeforeRenderingOpaques;
@@ -48,8 +43,9 @@ public class FixedResolutionFeature : ScriptableRendererFeature {
             UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
             UniversalCameraData cameraData = frameData.Get<UniversalCameraData>();
             var desc = cameraData.cameraTargetDescriptor;
-            desc.width = WIDTH;
-            desc.height = HEIGHT;
+            var target = cameraData.camera.targetTexture;
+            desc.width = target.width;
+            desc.height = target.height;
             desc.useDynamicScale = false;
             desc.useDynamicScaleExplicit = true;
             cameraData.cameraTargetDescriptor = desc;
@@ -65,9 +61,25 @@ public class FixedResolutionFeature : ScriptableRendererFeature {
     public override void AddRenderPasses(
         ScriptableRenderer renderer,
         ref RenderingData renderingData) {
-        renderingData.cameraData.cameraTargetDescriptor.width = WIDTH;
-        renderingData.cameraData.cameraTargetDescriptor.height = HEIGHT;
-        renderer.EnqueuePass(pass);
+
+        RenderTexture target = renderingData.cameraData.camera.targetTexture;
+
+        if (target != null) {
+            renderingData.cameraData.cameraTargetDescriptor.width = target.width;
+            renderingData.cameraData.cameraTargetDescriptor.height = target.height;
+
+
+            BuildingHologramRenderer hologramRenderer = Object.FindFirstObjectByType<BuildingHologramRenderer>();
+
+            if (hologramRenderer == null)
+                return;
+
+            renderer.EnqueuePass(pass);
+        } else {
+            Debug.LogWarning("FixedResolutionFeature only works with cameras that have a render texture target");
+        }
+
     }
 }
+
 ```

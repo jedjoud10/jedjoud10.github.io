@@ -69,9 +69,11 @@ A smarter way to tackle this would just to keep track of the chunks that are act
 
 Basically it was just too conservative, which isn't necessary in some cases where the sub-managers don't have anything that depend on each other.
 
-## Independent Chunk Generation
+## Independent Chunk Generation and Scaling "n+3" Issue
+As I wanted to 
 
-## Scaling "n+3" Issue
+
+## 
 
 # Meshing Stuff
 
