@@ -1,3 +1,4 @@
+{% import "macros/prose.html" as macros %}
 {% extends "_base.html" %}
 
 {% block page %}tag-list{% endblock page%}
@@ -8,12 +9,15 @@
 {%- if section.extra.lang %}{{ section.extra.lang }}{% else %}{{ lang }}{% endif -%}
 {%- endblock lang %}
 {% block title %}Tags{% endblock title %}
+{% block desc %}
+  <meta name="description" content="Tags">
+{% endblock desc %}
 
 {% block content %}
-{% include "_header.html" %}
 <div id="wrapper">
+  {{ macros::back_link(path = get_url(path="/")) }}
   <main>
-    <div class="title">Tags</div>
+    <h1 class="title">Tags</h1>
     <div class="tags">
       {% for tag in terms -%}
       <a class="instant" href="{{ tag.permalink }}"># {{ tag.name | lower }}</a>

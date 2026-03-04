@@ -12,23 +12,22 @@ default_language = "en"
 theme = "serene"
 output_dir = "public"
 compile_sass = true
-minify_html = true
-build_search_index = false            # Keep this false, search is temporarily unsupported
+minify_html = false # Keep this false, as it may cause issues with some styles
+build_search_index = false # Keep this false, search is temporarily unsupported
 taxonomies = [{ name = "tags" }, { name = "categories" }]
 
 [markdown]
-highlight_code = true
-highlight_theme = "css"
-extra_syntaxes_and_themes = ["highlight_themes", "syntaxes/"]
-highlight_themes_css = [
-    { theme = "serene-light", filename = "hl-light.css"},
-    { theme = "serene-dark", filename = "hl-dark.css"},
-]
 render_emoji = false
 external_links_target_blank = false
 external_links_no_follow = true
 external_links_no_referrer = true
 smart_punctuation = false
+github_alerts = true
+
+[markdown.highlighting]
+style = "class"
+light_theme = "github-light"
+dark_theme = "github-dark"
 
 [slugify]
 paths = "on"
@@ -38,15 +37,12 @@ anchors = "on"
 #=========================================================================================
 
 [extra]
-
 name = "Jed"                         # Your name
 id = "Jed037"                           # Your id / username / handle
-bio = "Hobby Programmer"                          # Your bio
+bio = "Computer Science Student"                          # Your bio
 avatar = "img/avatar.webp"            # Your avatar
 links = [                             # Your links
     { name = "GitHub", icon = "github", url = "https://github.com/jedjoud10" },
-    { name = "Twitter", icon = "twitter", url = "https://twitter.com/Jedjoudo" },
-    { name = "Instagram", icon = "instagram", url = "https://www.instagram.com/jedjoudo/" },
     { name = "LinkedIn", icon = "linkedin", url = "https://www.linkedin.com/in/jed-jribi/" },
     { name = "Email", icon = "email", url = "mailto:jribijed6@gmail.com" },
     { name = "Youtube", icon = "youtube", url = "https://www.youtube.com/channel/UCaeZjQFw4QIi5vdfonAmsvA" },
@@ -88,3 +84,11 @@ footer_credits = true                 # Whether to show "powered by zola and ser
 not_found_title = "404"
 not_found_error_text = "Not Found"
 not_found_recover_text = "« back to home »"
+
+
+back_link_text = "Back" # Text of the back button
+force_theme = false # false | "light" | "dark"
+
+reaction = false # Whether to enable anonymous emoji reactions (Note: You need to set up a working api endpoint to enable this feature)
+reaction_align = "right" # "left" | "center" | "right"
+reaction_endpoint = "https://example.com/api/reaction"

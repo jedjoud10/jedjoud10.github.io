@@ -1,11 +1,11 @@
 function enableThemeToggle() {
   const themeToggle = document.querySelector('#theme-toggle');
+  if (!themeToggle) return;
   const hlLink = document.querySelector('link#hl');
   const preferDark = window.matchMedia("(prefers-color-scheme: dark)");
   function toggleTheme(theme) {
     if (theme == "dark") document.body.classList.add('dark'); else document.body.classList.remove('dark');
-    if (hlLink) hlLink.href = `/hl-${theme}.css`;
-    themeToggle.innerHTML = theme == "dark" ? themeToggle.dataset.sunIcon : themeToggle.dataset.moonIcon;
+    if (hlLink) hlLink.href = `/giallo-${theme}.css`;
     sessionStorage.setItem("theme", theme);
     toggleGiscusTheme(theme);
   }
@@ -56,18 +56,6 @@ function enablePrerender() {
   });
 }
 
-function enableNavFold() {
-  const nav = document.querySelector('header nav');
-  if (!nav) return;
-  const toggler = nav.querySelector('#toggler');
-  if (!toggler) return;
-  const foldItems = nav.querySelectorAll('.fold');
-  toggler.addEventListener('click', () => {
-    if (window.innerWidth < 768 && [...foldItems].every(item => !item.classList.contains('shown'))) return;
-    foldItems.forEach(item => item.classList.toggle('shown'));
-  });  
-}
-
 function enableRssMask() {
   const rssBtn = document.querySelector('#rss-btn');
   const mask = document.querySelector('#rss-mask');
@@ -110,41 +98,6 @@ function enableOutdateAlert() {
     alert.querySelector('.content').textContent = msg;
     alert.classList.remove('hidden');
   }
-}
-
-function enableTocToggle() {
-  const tocToggle = document.querySelector('#toc-toggle');
-  if (!tocToggle) return;
-  const header = document.querySelector('header');
-  const blurred = header.classList.contains('blur');
-  const aside = document.querySelector('aside');
-  const anchors = aside.querySelectorAll('a');
-  const toggle = () => {
-    tocToggle.classList.toggle('active');
-    aside.classList.toggle('shown');
-    if (blurred) header.classList.toggle('blur');
-  };
-  tocToggle.addEventListener('click', toggle);
-  anchors.forEach(header => header.addEventListener('click', toggle));
-}
-
-function enableTocIndicate() {
-  const toc = document.querySelector('aside nav');
-  if (!toc) return;
-  const headers = document.querySelectorAll('h2, h3');
-  const tocMap = new Map();
-  headers.forEach(header => tocMap.set(header, toc.querySelector(`a[href="#${header.id}"]`)));
-  let activated = null;
-  const observer = new IntersectionObserver((entries) => entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const target = tocMap.get(entry.target);
-      if (target == activated) return;
-      if (activated) activated.classList.remove('active');
-      target.classList.add('active');
-      activated = target;
-    }
-  }), { rootMargin: '-9% 0px -90% 0px' });
-  headers.forEach(header => observer.observe(header));
 }
 
 function enableTocTooltip() {
@@ -198,14 +151,16 @@ function addCopyBtns() {
 function addBackToTopBtn() {
   const backBtn = document.querySelector('#back-to-top');
   if (!backBtn) return;
-  const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const toTop = () => window.scrollTo({ top: 0 });
   const toggle = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     if (scrollTop > 200 && !backBtn.classList.contains('shown')) {
       backBtn.classList.add('shown');
+      backBtn.setAttribute('tabindex', 0);
       backBtn.addEventListener('click', toTop);
     } else if (scrollTop <= 200 && backBtn.classList.contains('shown')) {
       backBtn.classList.remove('shown');
+      backBtn.setAttribute('tabindex', -1);
       backBtn.removeEventListener('click', toTop);
     }
   };
@@ -214,34 +169,97 @@ function addBackToTopBtn() {
 }
 
 function addFootnoteBacklink() {
-  const backlinkIcon = document.querySelector('.prose').dataset.backlinkIcon;
   const footnotes = document.querySelectorAll('.footnote-definition');
   footnotes.forEach(footnote => {
     const backlink = document.createElement('button');
     backlink.className = 'backlink';
     backlink.ariaLabel = 'backlink';
-    backlink.innerHTML = backlinkIcon;
+    backlink.innerHTML = '↩︎';
     backlink.addEventListener('click', () => window.scrollTo({
-      top: document.querySelector(`.footnote-reference a[href="#${footnote.id}"]`).getBoundingClientRect().top + window.scrollY - 50,
+      top: document.querySelector(`.footnote-reference a[href="#${footnote.id}"]`).getBoundingClientRect().top + window.scrollY,
     }));
-    footnote.appendChild(backlink);
+    const lastEl = footnote.lastElementChild || footnote;
+    lastEl.appendChild(backlink);
   });
 }
 
 function enableImgLightense() {
-  window.addEventListener("load", () => Lightense(".prose img", { background: 'rgba(43, 43, 43, 0.19)' }));
+  window.addEventListener("load", () => Lightense(".prose img:not(.no-lightense)", { background: 'rgba(43, 43, 43, 0.19)' }));
 }
 
-//--------------------------------------------
+function enableReaction() {
+  const container = document.querySelector('.reaction');
+  if (!container) return;
+  const endpoint = container.dataset.endpoint;
+  const slug = location.pathname.split('/').filter(Boolean).pop();
+  let state = { error: false, reaction: {} };
+  const render = () => {
+    const btns = Object.entries(state.reaction).map(([emoji, [count, reacted]])=> {
+      const span = document.createElement('span');
+      span.textContent = count;
+      const btn = document.createElement('button');
+      if (reacted) btn.classList.add('reacted');
+      btn.append(emoji, span);
+      btn.onclick = () => toggle(emoji);
+      return btn;
+    });
+    if (state.error) {
+      container.classList.add('error');
+    } else {
+      container.classList.remove('error');
+    }
+    container.replaceChildren(...btns);
+  };
+  const toggle = async (target) => {
+    const [count, reacted] = state.reaction[target];
+    state.reaction[target] = reacted ? [count - 1, false] : [count + 1, true];
+    render();
+    try {
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ slug, target, reacted: !reacted }),
+      });
+      if (resp.status === 200) {
+        error = false;
+      } else {
+        throw new Error();
+      }
+    } catch (err) {
+      state.error = true;
+      state.reaction[target] = [count, reacted];
+      render();
+    }
+  };
+  const init = async () => {
+    const resp = await fetch(`${endpoint}?slug=${slug}`);
+    if (resp.status === 200) {
+      state.reaction = await resp.json();
+      render();
+    }
+  };
+  init();
+}
+
+function enableBackLink() {
+  const backLink = document.querySelector('#back-link');
+  if (!backLink) return;
+  backLink.addEventListener('click', (e) => {
+    if (document.referrer && location.href.startsWith(document.referrer) && !location.hash && history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+}
 
 enableThemeToggle();
 enablePrerender();
-enableNavFold();
 enableRssMask();
+enableBackLink();
 if (document.body.classList.contains('post')) {
   enableOutdateAlert();
-  enableTocToggle();
-  enableTocIndicate();
   addBackToTopBtn();
   enableTocTooltip();
 }
@@ -249,4 +267,5 @@ if (document.querySelector('.prose')) {
   addCopyBtns();
   addFootnoteBacklink();
   enableImgLightense();
+  enableReaction();
 }

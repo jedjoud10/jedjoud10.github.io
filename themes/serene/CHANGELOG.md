@@ -2,11 +2,184 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.6.3] - 2026-02-14
+
+- fix: back link behavior on new tab
+
+## [5.6.2] - 2026-02-13
+
+- feat: add markdown support for collection's content and subtitle [@paulhdk](https://github.com/paulhdk) ([#104](https://github.com/isunjn/serene/pull/104))
+
+## [5.6.1] - 2026-02-01
+
+- fix: codeblock with filename
+
+## [5.6.0] - 2026-02-01
+
+- feat: adapt zola v0.22 new code highlighting, custom highlight themes (`serene-light`/`serene-dark`) are removed in favor of built-in themes
+- feat: add `github_alerts` color styling (zola v0.21+ feature)
+- feat: add `rel_me` option for links (useful for Mastodon verification)
+- feat: add `youtube` shortcode [@gloomydumber](https://github.com/gloomydumber) ([#92](https://github.com/isunjn/serene/pull/92))
+- fix: input element color scheme should be changed along with light/dark mode change
+
+### Migrate from zola v0.21
+
+Since this version, the minimum zola version required has changed to `v0.22.1`.
+
+Replace the old `[markdown]` section in your `config.toml`:
+
+```toml
+# Old (remove these)
+[markdown]
+highlight_code = true
+highlight_theme = "css"
+extra_syntaxes_and_themes = ["themes/serene/highlight_themes"]
+highlight_themes_css = [
+  { theme = "serene-light", filename = "hl-light.css" },
+  { theme = "serene-dark", filename = "hl-dark.css" },
+]
+```
+
+With the new format:
+
+```toml
+# New
+[markdown]
+github_alerts = true  # optional, enables GitHub-style callout syntax
+
+[markdown.highlighting]
+style = "class"
+light_theme = "github-light"  # or any zola built-in theme
+dark_theme = "github-dark"    # or any zola built-in theme
+```
+
+You should also delete the generated `hl-light.css` and `hl-dark.css` files from your `static/` directory if you have them.
+The new generated css files for code highlighting will be `giallo-light.css` and `giallo-dark.css`. (giallo is zola's new syntax highlighter)
+
+## [5.5.0] - 2025-10-18
+
+- feat: shortcode `figure`'s `caption` can use markdown now, the `via` prop is removed, use `caption="[via](https://example.com)"` instead
+- fix: shortcode `figure` now will keep img's ratio on small screens when `width` and `height` is set
+- ui: a few tweaks
+
+## [5.4.3] - 2025-09-29
+
+- fix: correct back link button behavior when there is a hash in url
+
+## [5.4.2] - 2025-09-27
+
+- fix: feed.xml template build error when there is no post
+
+## [5.4.1] - 2025-09-21
+
+- feat: add overflow scroll indicator for table-of-contents
+
+## [5.4.0] - 2025-09-06
+
+- ui: a few tweaks
+- feat: back link button now do `history.back()` if appropriate
+- feat: add custom height and width options for `figure` shortcode [@znxftw](https://github.com/znxftw) ([#83](https://github.com/isunjn/serene/pull/83))
+
+## [5.3.1] - 2025-05-22
+
+- fix: `extra_syntaxes_and_themes` defaults to theme's, so you don't need to copy that path [@makai410](https://github.com/makai410) ([#80](https://github.com/isunjn/serene/pull/80))
+
+## [5.3.0] - 2025-05-07
+
+- ui: a few tweaks
+
+## [5.2.1] - 2025-04-19
+
+- fix: homepage avatar style
+
+## [5.2.0] - 2025-04-10
+
+- ui: a few tweaks
+
+## [5.1.0] - 2025-04-08
+
+- feat: add support for zola v0.20.0 codeblock [name annotation](https://www.getzola.org/documentation/content/syntax-highlighting/#annotations), previous `codeblock` shortcode is deprecated
+- refactor: remove `static/` prefix from icon paths, eliminates the need to copy icon files [@koyokr](https://github.com/koyokr) ([#76](https://github.com/isunjn/serene/pull/76))
+
+## [5.0.1] - 2025-03-31
+
+- fix: external links & recent posts on the homepage [@Hiramiya](https://github.com/Hiramiya) ([#74](https://github.com/isunjn/serene/pull/74))
+
+## [5.0.0] - 2025-03-20
+
+> **Warning**
+>
+> This version is a big redesign and contains lots of breaking changes.
+> If you came from a previous version and want to upgrade, I suggest you start all over again.
+
+- New style: headerless, section title and subtitle, improved typography...
+- Collections: special blocks for showcasing your list (a more general form of previous 'projects' page)
+- Default icon size changed from 20 to 18
+- Some config options are moved from `config.toml` to specific `_index.md`
+- Added options: `date_format` `back_link_text`, (section) `title` `subtitle`, (homepage) `footer`
+- Removed options: `display_*` `nav_*` `blur_effect` `display_tags` `truncate_summary` `not_found_title`
+- Callouts: `question` removed, `alert` renamed to `caution`, attribution `header` renamed to `title`
+- Typst math rendering removed
+- Added CSS variables: `--primary-decoration-color` `--text-decoration-color` `--highlight-mark-color` `--font-size` `--line-height`
+- Removed CSS variables: `--homepage-font-size` `--homepage-line-height` `--paragraph-font-size` `--paragraph-line-height` `--aside-font-size`
+- Lots of UI tweaks
+- feat: Support subpath `base_url` [@b-d-e](https://github.com/b-d-e) ([#68](https://github.com/isunjn/serene/pull/68))
+- fix: `force_theme` option [@teh-banana](https://github.com/teh-banana) ([#71](https://github.com/isunjn/serene/pull/71))
+- fix: Add content-type header to reaction fetch [@sorokya](https://github.com/sorokya) ([#72](https://github.com/isunjn/serene/pull/72))
+
+## [4.5.0] - 2024-11-03
+
+### UI:
+
+- A few tweaks
+
+## [4.4.0] - 2024-11-02
+
+### Add:
+
+- New feature: Anonymous emoji reactions
+- New options: `display_bio` `display_avatar` `recent`
+
+### Remove:
+
+- Removed options: `homepage_layout` (use `recent` instead), `recent_more`
+- Removed css variable: `--icon-size`
+
+### UI:
+
+- A few tweaks
+
+## [4.3.0] - 2024-10-13
+
+### Add:
+
+- Add katex [copy-tex](https://github.com/KaTeX/KaTeX/tree/main/contrib/copy-tex) extension & bump katex version to 0.16.11
+
+## [4.2.0] - 2024-10-04
+
+### Fix:
+
+- Fix anchor link style issue, now `#` should no be present in the RSS file
+
+## [4.1.0] - 2024-09-16
+
+### Add:
+
+- `force_theme` option to only use light or dark theme [@bruceoberg](https://github.com/bruceoberg) ([#62](https://github.com/isunjn/serene/issues/62))
+- A few more icons [@bruceoberg](https://github.com/bruceoberg) ([#63](https://github.com/isunjn/serene/issues/63))
+
+
+## [4.0.0] - 2024-08-11
+
+- Deal with breaking changes of zola 19 config options:
+>  - Changed config options named `generate_feed` to `generate_feeds` (both in config.toml and in section front-matter)
+>  - Changed config option `feed_filename: String` to `feed_filenames: Vec<String>`
+
 ## [3.4.0] - 2024-04-25
 
-### Add: 
+### Add:
 
-- Math rending with [Typst](https://typst.app) [@Lambdaris](https://github.com/Lambdaris) [(#57)](https://github.com/isunjn/serene/pull/57)
+- Math rending with [Typst](https://typst.app) [@Lambdaris](https://github.com/Lambdaris) ([#57](https://github.com/isunjn/serene/pull/57))
 
 ## [3.3.1] - 2024-03-10
 
@@ -48,12 +221,13 @@ All notable changes to this project will be documented in this file.
 
 ### Fix:
 
-- Add `word-wrap: break-word` to inline code 
+- Add `word-wrap: break-word` to inline code
 
 
 ## [3.0.0] - 2024-01-14
 
 > **Warning**
+>
 > This version contains several breaking changes.
 > If you came from a previous version and want to upgrade, I suggest you start all over again.
 
@@ -61,10 +235,10 @@ All notable changes to this project will be documented in this file.
 
 - `recent` homepage layout
 - `featured` mark
-- Add title to ToC when it's too long 
+- Add title to ToC when it's too long
 - A way to sort categories
 - Project item image
-- prerender/prefetch when hover, using `speculationrules` or `prefetch` 
+- prerender/prefetch when hover, using `speculationrules` or `prefetch`
 - RSS mask
 - A few more css variables
 
@@ -129,6 +303,7 @@ All notable changes to this project will be documented in this file.
 ## [2.0.0] - 2023-09-01
 
 > **Warning**
+>
 > This version contains several breaking changes.
 > If you came from a previous version and want to upgrade, I suggest you start all over again.
 
@@ -226,6 +401,28 @@ All notable changes to this project will be documented in this file.
 
 First release 🎉
 
+[5.6.3]: https://github.com/isunjn/serene/compare/v5.6.2...v5.6.3
+[5.6.2]: https://github.com/isunjn/serene/compare/v5.6.1...v5.6.2
+[5.6.1]: https://github.com/isunjn/serene/compare/v5.6.0...v5.6.1
+[5.6.0]: https://github.com/isunjn/serene/compare/v5.5.0...v5.6.0
+[5.5.0]: https://github.com/isunjn/serene/compare/v5.4.3...v5.5.0
+[5.4.3]: https://github.com/isunjn/serene/compare/v5.4.2...v5.4.3
+[5.4.2]: https://github.com/isunjn/serene/compare/v5.4.1...v5.4.2
+[5.4.1]: https://github.com/isunjn/serene/compare/v5.4.0...v5.4.1
+[5.4.0]: https://github.com/isunjn/serene/compare/v5.3.1...v5.4.0
+[5.3.1]: https://github.com/isunjn/serene/compare/v5.3.0...v5.3.1
+[5.3.0]: https://github.com/isunjn/serene/compare/v5.2.1...v5.3.0
+[5.2.1]: https://github.com/isunjn/serene/compare/v5.2.0...v5.2.1
+[5.2.0]: https://github.com/isunjn/serene/compare/v5.1.0...v5.2.0
+[5.1.0]: https://github.com/isunjn/serene/compare/v5.0.1...v5.1.0
+[5.0.1]: https://github.com/isunjn/serene/compare/v5.0.0...v5.0.1
+[5.0.0]: https://github.com/isunjn/serene/compare/v4.5.0...v5.0.0
+[4.5.0]: https://github.com/isunjn/serene/compare/v4.4.0...v4.5.0
+[4.4.0]: https://github.com/isunjn/serene/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/isunjn/serene/compare/v4.2.0...v4.3.0
+[4.2.0]: https://github.com/isunjn/serene/compare/v4.1.0...v4.2.0
+[4.1.0]: https://github.com/isunjn/serene/compare/v4.0.0...v4.1.0
+[4.0.0]: https://github.com/isunjn/serene/compare/v3.4.0...v4.0.0
 [3.4.0]: https://github.com/isunjn/serene/compare/v3.3.1...v3.4.0
 [3.3.1]: https://github.com/isunjn/serene/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/isunjn/serene/compare/v3.2.0...v3.3.0
