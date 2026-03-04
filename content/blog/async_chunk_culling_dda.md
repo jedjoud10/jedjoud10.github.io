@@ -5,7 +5,7 @@ draft = true
 
 [taxonomies]
 categories = ["Random"]
-tags = ["c#", "unity" "voxels", "optimization"]
+tags = ["c#", "unity", "voxels", "optimization"]
 
 [extra]
 lang = "en"
