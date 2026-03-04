@@ -1,11 +1,11 @@
 +++
-title = "Async Entity Culling using Software DDA"
+title = "Unity Async Entity Culling using Software 3D-DDA"
 date = 2025-08-25
 draft = true
 
 [taxonomies]
 categories = ["Random"]
-tags = ["c#", "voxels", "optimization"]
+tags = ["c#", "unity" "voxels", "optimization"]
 
 [extra]
 lang = "en"
