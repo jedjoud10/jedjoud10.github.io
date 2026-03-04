@@ -1,3 +1,14 @@
+[[collection]]
+type = "card"
+title = "Title"
+subtitle = "Subtitle" # optional; supports Markdown
+date = "Date" # optional
+link = "https://example.com" # optional
+icon = "https://example.com/image.png" # optional
+content = "Content" # supports Markdown
+tags = ["tag1", "tag2"] # optional
+featured = false  # optional
+
 [[project]]
 name = "cFlake Engine (2020 - 2023)"
 desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."

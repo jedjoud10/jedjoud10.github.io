@@ -37,17 +37,6 @@ anchors = "on"
 #=========================================================================================
 
 [extra]
-name = "Jed"                         # Your name
-id = "Jed037"                           # Your id / username / handle
-bio = "Computer Science Student"                          # Your bio
-avatar = "img/avatar.webp"            # Your avatar
-links = [                             # Your links
-    { name = "GitHub", icon = "github", url = "https://github.com/jedjoud10" },
-    { name = "LinkedIn", icon = "linkedin", url = "https://www.linkedin.com/in/jed-jribi/" },
-    { name = "Email", icon = "email", url = "mailto:jribijed6@gmail.com" },
-    { name = "Youtube", icon = "youtube", url = "https://www.youtube.com/channel/UCaeZjQFw4QIi5vdfonAmsvA" },
-]
-
 homepage_layout = "list"             # "about" | "list"
 
 sections = [
