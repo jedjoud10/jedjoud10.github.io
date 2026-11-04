@@ -1,0 +1,214 @@
+[[project]]
+name = "cFlake Engine (2020 - 2023)"
+desc = "Custom built Rust game engine, with a custom ECS, render library, and GPU based terrain generation system."
+#img = "/nice_cflake_terrain.png"
+tags = ["ecs", "rust", "graphics", "game-dev", "game-engine-dev", "wgpu"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/cflake-engine" },
+  { name = "Demo Video", url = "https://www.youtube.com/watch?v=lbgAekmQiOY&ab_channel=Jed037" },
+  { name = "New terrain demo video", url = "https://www.youtube.com/watch?v=r_6kavfRgyE&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "HypoSharp (C# OpenTK engine) (2019)"
+desc = "First game engine I decided to implement in csharp using OpenTK. Managed to implement a deferred rendering pipeline but then moved to rust"
+tags = ["graphics", "game-dev", "opengl", "game-engine-dev"]
+links = [
+]
+
+[[project]]
+name = "Rust-GPU Hierchical 3D DDA (2024)"
+desc = "Unfinished hierarchical 3D voxel renderer written in ``rust``, ``rust-gpu``,  ``wgpu``"
+tags = ["graphics", "compute", "rust", "wgpu"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/rust-gpu-test" },
+]
+
+[[project]]
+name = "Vulkan Testing (+Slang) (2025)"
+desc = "Testing ground for raw ``Vulkan`` (using ``Rust``, ``Ash``) with custom ``Slang`` shader compilation at build time. Currently just implements a simple 3D DDA"
+tags = ["graphics", "rust", "compute", "vulkan", "slang"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/vulkan-testing" },
+]
+
+[[project]]
+name = "Throw It IMGJ-33 (2024-2025)"
+desc = "Fourth rewrite of Throw It. Completely overhauled gameplay and designs"
+tags = ["game-dev", "unity", "csharp", "snow-stuff"]
+links = [
+  { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
+  { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
+  { name = "Repository", url = "https://github.com/JL-squared/Throw-It-IMGJ33/tree/main" },
+]
+
+[[project]]
+name = "MyAnimeList Data Scraping (2024)"
+desc = "Simple rust/python fetcher that reads off of some MAL scraper libraries and writes it to a CSV. Used as my MDM4U finalizing project."
+tags = ["data-management", "rust", "python"]
+links = [
+]
+
+[[project]]
+name = "OpenTK OpenGL Voxel Renderer (2024)"
+desc = "Simple voxel raymarcher implemented in csharp and OpenGL. Makes use of sparse virtual textures and temporal depth reprojection to accelerate marching"
+tags = ["graphics", "csharp", "opengl"]
+#img = "/voxel_raymarcher.png"
+links = [
+  { name = "Demo Video / Implementation Features", url = "https://www.youtube.com/watch?v=Wzo-LqPfMPE" },
+  { name = "Demo Funny Bug Video", url = "https://www.youtube.com/watch?v=Pn0584Uzk7k&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "Hypothermia (2023 - soon)"
+desc = "WIP tech game where you survive and innovate in the cold lands of Hel."
+tags = ["game-dev", "unity", "csharp", "tech", "survival"]
+links = [
+  { name = "Devlog Channel", url = "https://www.youtube.com/@pigsteel3342/videos" },
+  { name = "Devlog Channel 2", url = "https://www.youtube.com/@jed0378/videos" },
+]
+
+[[project]]
+name = "Machine learning enabled colored ball sorter (2024)"
+desc = "Implemented for one of our TEJ4M projects. Project done with a friend"
+tags = ["tech", "rpi", "machine learning", "electronics"]
+links = [
+]
+
+
+[[project]]
+name = "Tic-tac-toe AI with machine learning image recognition (2024)"
+desc = "Implemented for our final performance task in TEJ4M. Project done with a friend. Used a custom neural network and algorithmic TTT bot"
+tags = ["tech", "rpi", "machine learning", "electronics"]
+links = [
+]
+
+[[project]]
+name = "Unity Multiplayer Chat Lobby Prototype (2025)"
+desc = "Implemented in a few hours using Unity Netcode for GameObjects."
+tags = ["unity", "multiplayer"]
+links = [
+]
+
+[[project]]
+name = "Unity Multiplayer Tic Tac Toe Prototype (2025)"
+desc = "WIP. Using Unity Netcode for GameObjects."
+tags = ["unity", "multiplayer"]
+links = [
+]
+
+[[project]]
+name = "Unity Factory Game Prototype (2025)"
+desc = "WIP. Using ECS as the backend. Taking inspiration from Satisfactory / GregTech / Factorio / Create. Maybe something more realistic with more in depth automation."
+tags = ["unity"]
+links = [
+]
+
+[[project]]
+name = "This website itself!!"
+desc = "Made using Zola and Serene. Markdown as well!"
+tags = ["web"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/jedjoud10.github.io" },
+]
+
+[[project]]
+name = "Lead programmer/engineer for FTC team 23880 (2023) (Nelson High School)"
+desc = "Lead Java programmer and engineer. Also one of the drivers for the Bolton and Scarborough competitions"
+tags = ["java", "robotics"]
+links = [
+  { name = "Code Base Respository", url = "https://github.com/jedjoud10/FTC23880" },
+]
+
+[[project]]
+name = "Prisoner's Dilemma test in Rust (2024)"
+desc = "Simple personal testing ground for messing around with strategies in the Prisoner's Dilemma Game"
+tags = ["rust"]
+links = [
+  { name = "Respository", url = "https://github.com/jedjoud10/game-theory-test" },
+]
+
+[[project]]
+name = "Simple Rust wrapper around mcsrvstat.us API (2024)"
+desc = ""
+tags = ["rust"]
+links = [
+  { name = "Respository", url = "https://github.com/jedjoud10/mc-server-status" },
+]
+
+[[project]]
+name = "GPU/CPU Procedural Terrain Generator in Unity (2023 - present)"
+desc = "Implemented using compute shaders (only for voxelization) and async GPU readback. Supports Job system + Burst for terrain editing and CPU meshing"
+tags = ["game-dev", "unity", "compute", "csharp"]
+#img = "/unity_terrain_good.png"
+links = [
+    { name = "Demo Video", url = "https://www.youtube.com/watch?v=D4dvcqclPC4&t=217s&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "Snow Game Prototype"
+desc = "Prototype for a snow game. Kinda like a rewrite of OG Throw It?"
+tags = ["game-dev", "ue4", "unity", "snow-stuff"]
+links = [
+  { name = "UE4 Test Video", url = "https://www.youtube.com/watch?v=9GY12-9wfto&t=3s&ab_channel=Jed037" },
+  { name = "Unity Test Video", url = "https://www.youtube.com/watch?v=VOfj5LN8Gw0&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "GPU/CPU Procedural Terrain Generator in Unity (2019)"
+desc = "Implemented using compute shaders (voxelization and meshing) and async GPU readback."
+tags = ["game-dev", "unity", "csharp"]
+links = [
+    { name = "Test Video", url = "https://www.youtube.com/watch?v=LkH9zZbKxUA&ab_channel=Jed037" },
+]
+
+[[project]]
+name = "PC-Compatible Xbox Steering Wheel (2020)"
+desc = "Hacked a cheap Xbox steering wheel to make it PC compatible by using an Arduino Nano and NodeJS to emulate user input"
+tags = ["arduino", "electronics"]
+links = [
+]
+
+[[project]]
+name = "Discord Bot (degeneracy) (2023 - 2024)"
+desc = "Implemented for discord hackathon, then repurposed as a c.ai wrapper to talk to virtual anime girls through discord"
+tags = ["discordjs", "javascript"]
+links = [
+]
+
+[[project]]
+name = "DC Brushed Motor Self-Stabilizing Drone (2022 - present)"
+desc = "Built a self-stabiliing drone using an Arduino Nano and MPU9250 for my Culminating Activity for TEJ3M"
+tags = ["arduino", "electronics"]
+links = [
+]
+
+[[project]]
+name = "Villagers vs Illagers game in WASM4 (2024 - never finished)"
+desc = "Simple WASM4 game I made with a friend of mine. Implements 2D grid with entities that move around to their objectives"
+tags = ["rust", "wasm4"]
+links = [
+  { name = "Repository", url = "https://github.com/jedjoud10/villagers-vs-illagers" },
+]
+
+[[project]]
+name = "Interdimensional struggle (2020)"
+desc = "Unity game I made with a friend for a weekend game jam."
+tags = ["2D", "unity", "csharp"]
+links = [
+    { name = "Itch Page", url = "https://jed037.itch.io/interdimensional-struggle" },
+]
+
+[[project]]
+name = "Throw It (2019)"
+desc = "First Unity game me and my friends decided to make in middle school. Initally implemented in UE4, moved to Unity."
+tags = ["game-dev", "unity", "snow-stuff", "csharp"]
+links = [
+]
+
+[[project]]
+name = "Electrilized (2017)"
+desc = "First game idea that I implemented but never completed. Simple crafting and somewhat linear item progression. "
+tags = ["ue4", "tech"]
+links = [
+]
